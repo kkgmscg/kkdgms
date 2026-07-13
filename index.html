@@ -1,268 +1,509 @@
 <!DOCTYPE html>
-<html lang="ta">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>KKDGMS - School Portal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>KKDGMS School Website</title>
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600;700&display=swap');
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-    body{background:linear-gradient(135deg,#0a0f29,#1a2a6c);min-height:100vh;color:#fff;}
-.header{text-align:center;padding:25px;background:rgba(0,0,0,0.6);border-bottom:3px solid #00ff88;}
-.header h1{color:#00ff88;font-size:26px;margin-bottom:10px;}
-.datetime-box{background:rgba(0,0,0,0.8);padding:20px;border-radius:15px;margin:15px auto;max-width:600px;border:2px solid #00d4ff;}
-.full-date{font-size:28px;color:#00ff88;font-weight:700;margin-bottom:10px;text-shadow:0 0 10px #00ff88;}
-.clock{font-family:'Orbitron';font-size:45px;font-weight:700;margin-top:10px;}
-.hour{color:#ffdd00;text-shadow:0 0 15px #ffdd00;}
-.min{color:#00ff88;text-shadow:0 0 15px #00ff88;}
-.sec{color:#ff6600;text-shadow:0 0 15px #ff6600;}
-.ampm{color:#00d4ff;text-shadow:0 0 15px #00d4ff;}
-.views{font-family:'Orbitron';font-size:20px;color:#00d4ff;margin-top:10px;}
-.container{max-width:1100px;margin:30px auto;padding:20px;}
-.login-box,.dashboard{background:rgba(0,0,0,0.7);padding:30px;border-radius:20px;border:2px solid #00ff88;margin-bottom:20px;}
-input,button{width:100%;padding:14px;margin:10px 0;border:none;border-radius:10px;font-size:16px;}
-input{background:#222;color:#fff;border:1px solid #00ff88;}
-button{background:linear-gradient(90deg,#00ff88,#00d4ff);color:#000;font-weight:700;cursor:pointer;font-size:18px;}
-.hidden{display:none;}
-.btn-group{display:flex;gap:15px;}
-.btn-group button{flex:1;background:#ff6600;color:#fff;}
-.class-btns{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:20px 0;}
-.class-btns button{background:linear-gradient(90deg,#ff0044,#ff6600);font-size:20px;}
-.calendar-nav{display:flex;justify-content:space-between;align-items:center;margin:15px 0;}
-.calendar-nav button{width:auto;padding:10px 20px;background:#00ff88;}
-.calendar-header{text-align:center;font-size:24px;color:#00ff88;font-weight:700;}
-.calendar-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:10px;}
-.calendar-weekdays div{text-align:center;font-weight:700;color:#ffdd00;padding:10px;background:#222;border-radius:8px;}
-.calendar-days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
-.date-box{padding:15px;background:#2a2a2a;text-align:center;border-radius:10px;cursor:pointer;font-weight:600;}
-.date-box:hover{background:#00ff88;color:#000;}
-.empty{background:transparent!important;cursor:default!important;}
-.has-link{background:#ff6600!important;color:#fff!important;}
-.link-box{margin-top:20px;padding:20px;background:#111;border-radius:15px;border:2px dashed #00ff88;min-height:80px;}
-.link-row{display:flex;align-items:center;gap:10px;margin:10px 0;background:#1a1a1a;padding:12px;border-radius:10px;}
-.link-row a{flex:1;color:#00ff88;font-size:18px;text-decoration:none;font-weight:700;}
-.student-link{padding:15px;background:#003366;border-left:5px solid #00d4ff;margin:10px 0;border-radius:10px;}
-.student-link a{color:#00ff88;font-size:20px;text-decoration:none;font-weight:700;}
-.logout{background:#ff0044;color:#fff;}
-h2,h3,h4{color:#00ff88;margin-bottom:15px;text-align:center;}
-.info{font-size:14px;color:#aaa;text-align:center;margin:10px 0;}
-.label{color:#ffdd00;font-weight:600;margin-top:10px;}
-.day-info{color:#00d4ff;font-size:18px;text-align:center;margin-bottom:15px;font-weight:700;}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+    transition: 0.3s;
+}
+body.dark { background: linear-gradient(135deg, #232526 0%, #414345 100%); }
+.container { max-width: 1200px; margin: 0 auto; background: rgba(255,255,255,0.98); padding: 15px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); min-height: 90vh; position: relative; padding-bottom: 70px; }
+body.dark.container { background: #2d2d2d; color: white; }
+
+.header { background: linear-gradient(90deg, #FF5722, #E91E63); color: white; padding: 20px 15px; text-align: center; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; }
+.header h1 { font-size: clamp(28px, 8vw, 42px); font-weight: 900; margin: 0; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); text-align: center; }
+.header p { font-size: clamp(14px, 4vw, 18px); margin: 8px 0 0; font-weight: 600; text-align: center; }
+.header.datetime { font-size: clamp(12px, 3.5vw, 15px); margin-top: 5px; font-weight: 500; opacity: 0.95; }
+.dark-btn { position: absolute; right: 15px; top: 15px; background: white; color: #333; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 20px; width: auto; }
+
+.footer { position: absolute; bottom: 0; left: 0; right: 0; text-align: center; padding: 12px; background: #333; color: white; border-radius: 0 0 15px 15px; font-size: 13px; }
+.footer.school-name { font-size: 14px; font-weight: bold; letter-spacing: 1px; }
+
+.marquee { background: #FF9800; color: white; padding: 10px; font-weight: bold; border-radius: 8px; margin-bottom: 15px; overflow: hidden; white-space: nowrap; font-size: clamp(13px, 3.5vw, 16px); display: none; }
+.marquee.show { display: block; }
+.marquee span { display: inline-block; padding-left: 100%; animation: scroll-left 15s linear infinite; }
+@keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+.login-form { max-width: 450px; margin: 20px auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+body.dark.login-form { background: #3a3a3a; }
+input, select, button, textarea { width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; font-weight: 600; }
+body.dark input, body.dark select, body.dark textarea { background: #555; color: white; border-color: #777; }
+button { background: linear-gradient(90deg, #4CAF50, #45a049); color: white; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 16px; min-height: 48px; }
+button:active { transform: scale(0.98); }
+
+option[value="9"] { background: #FF9800; color: white; font-weight: bold; }
+option[value="10"] { background: #2196F3; color: white; font-weight: bold; }
+option[value="11"] { background: #4CAF50; color: white; font-weight: bold; }
+option[value="12"] { background: #9C27B0; color: white; font-weight: bold; }
+
+.calendar-header { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; gap: 8px; }
+.calendar-header button { width: auto; padding: 10px 12px; font-size: 14px; flex-shrink: 0; }
+.calendar-header h3 { font-size: clamp(16px, 4.5vw, 20px); margin: 0; text-align: center; flex: 1; }
+.calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin: 10px 0; }
+.weekday { text-align: center; font-weight: bold; padding: 8px 2px; background: #FF5722; color: white; border-radius: 6px; font-size: clamp(11px, 3vw, 14px); }
+.day { padding: 12px 2px; text-align: center; background: #f5f5f5; cursor: pointer; border-radius: 8px; transition: 0.2s; font-weight: 800; font-size: clamp(14px, 4vw, 16px); min-height: 45px; display: flex; align-items: center; justify-content: center; position: relative; }
+body.dark.day { background: #444; color: white; }
+.day:active { transform: scale(0.95); }
+.day.empty { background: transparent; cursor: default; }
+.day.read::after { content: '✓'; position: absolute; top: 2px; right: 4px; font-size: 12px; color: #4CAF50; }
+.day.has-links-9 { background: #FF9800; color: white; }
+.day.has-links-10 { background: #2196F3; color: white; }
+.day.has-links-11 { background: #4CAF50; color: white; }
+.day.has-links-12 { background: #9C27B0; color: white; }
+.day-sunday { background: #FFE082!important; color: #5D4037!important; border: 2px solid #FFB300; }
+.day-govt { background: #FFCDD2!important; color: #c62828!important; border: 2px solid #e53935; }
+
+.link-item { background: linear-gradient(90deg, #FFF3E0, #FFE0B2); padding: 12px; margin: 10px 0; border-radius: 10px; border-left: 5px solid #FF5722; word-break: break-word; }
+body.dark.link-item { background: #4a3a2a; }
+.link-number { background: #9C27B0; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; font-size: 12px; display: inline-block; margin-bottom: 8px; }
+.link-title { font-weight: bold; color: #E91E63; margin-bottom: 6px; font-size: clamp(14px, 4vw, 16px); }
+body.dark.link-title { color: #FF8A65; }
+.link-item a { color: #2196F3; text-decoration: none; font-weight: 600; font-size: clamp(13px, 3.8vw, 15px); }
+.link-item.read { opacity: 0.6; }
+.delete-btn { background: #f44336; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; width: auto; margin: 0; float: right; font-size: 14px; min-height: 36px; }
+.add-link-btn { background: #2196F3; margin-top: 10px; }
+.hidden { display: none; }
+.header-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.header-bar h2 { font-size: clamp(20px, 5.5vw, 24px); margin: 0; }
+.link-input-group { margin-bottom: 15px; border: 1px dashed #ccc; padding: 10px; border-radius: 8px; background: #f9f9f9; }
+body.dark.link-input-group { background: #3a3a3a; border-color: #666; }
+.notification-box { background: #fff3e0; padding: 12px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #FF9800; }
+body.dark.notification-box { background: #4a3a2a; }
+.search-box { margin: 15px 0; }
+.search-box input { background: #E3F2FD; }
+.visitor-counter { display: flex; gap: 10px; margin: 15px 0; }
+.counter-box { flex: 1; background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 15px; border-radius: 10px; text-align: center; }
+.counter-box h4 { margin: 0; font-size: 14px; }
+.counter-box.count { font-size: 28px; font-weight: 900; margin-top: 5px; }
+.section-title { background: linear-gradient(90deg, #FF5722, #9C27B0); color: white; padding: 12px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-size: clamp(16px, 4.5vw, 18px); font-weight: bold; }
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); overflow: auto; }
+.modal-content { background: white; margin: 10% auto; padding: 20px; border-radius: 15px; width: 90%; max-width: 400px; }
+body.dark.modal-content { background: #3a3a3a; }
+.close-btn { float: right; font-size: 28px; font-weight: bold; cursor: pointer; color: #aaa; }
 </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>KANYAKUMARI DISTRICT GOVERNMENT MODEL SCHOOL</h1>
-    <div class="datetime-box">
-        <div class="full-date" id="fullDate"></div>
-        <div class="clock" id="clock"></div>
-        <div class="views">TOTAL VIEWS: <span id="viewCount">0000</span></div>
-    </div>
-</div>
-
 <div class="container">
-<div class="login-box" id="mainLogin">
-    <h2>LOGIN TYPE</h2>
-    <div class="btn-group">
-        <button onclick="showLogin('admin')">👨‍🏫 ADMIN LOGIN</button>
-        <button onclick="showLogin('student')">👨‍🎓 STUDENT LOGIN</button>
+    <div class="header">
+        <div style="width:100%">
+            <h1>KKDGMS</h1>
+            <p>School Website</p>
+            <div class="datetime" id="currentDateTime"></div>
+        </div>
+        <button class="dark-btn" onclick="toggleDark()">🌙</button>
+    </div>
+
+    <div id="marqueeBar" class="marquee">
+        <span id="marqueeText"></span>
+    </div>
+
+    <div id="loginSection" class="login-form">
+        <h2>Login</h2>
+        <select id="userType">
+            <option value="admin">Admin</option>
+            <option value="student">Student</option>
+        </select>
+        <input type="text" id="username" placeholder="Username" autocomplete="off">
+        <input type="password" id="password" placeholder="Password" autocomplete="off">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div id="adminPanel" class="hidden">
+        <div class="header-bar">
+            <h2>Admin Panel</h2>
+            <div>
+                <button onclick="openPasswordModal()" style="width:auto;background:#FF9800; margin-right:5px;">🔒 Change Password</button>
+                <button onclick="logout()" style="width:auto;background:#f44336;">Logout</button>
+            </div>
+        </div>
+
+        <div class="visitor-counter">
+            <div class="counter-box">
+                <h4>📅 Today Visitors</h4>
+                <div class="count" id="todayCount">0</div>
+            </div>
+            <div class="counter-box" style="background: linear-gradient(135deg, #2196F3, #1976D2);">
+                <h4>🌍 Total Visitors</h4>
+                <div class="count" id="totalCount">0</div>
+            </div>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Search Link Title..." onkeyup="searchLinks()">
+            <div id="searchResults"></div>
+        </div>
+
+        <div class="notification-box">
+            <h3>📢 Rolling Notification</h3>
+            <textarea id="notificationInput" rows="3" placeholder="Enter notification message..."></textarea>
+            <button onclick="saveNotification()">Update Notification</button>
+            <button onclick="clearNotification()" style="background:#f44336;">Clear</button>
+        </div>
+
+        <div class="section-title">📚 Class Links Management</div>
+        <label>Select Class:</label>
+        <select id="classSelect" onchange="showCalendar()">
+            <option value="">-- Select Class --</option>
+            <option value="9">Class 9</option>
+            <option value="10">Class 10</option>
+            <option value="11">Class 11</option>
+            <option value="12">Class 12</option>
+        </select>
+
+        <div id="calendarSection" class="hidden">
+            <div class="calendar-header">
+                <button onclick="prevMonth()">← Prev</button>
+                <h3 id="monthYear"></h3>
+                <button onclick="nextMonth()">Next →</button>
+            </div>
+            <div id="calendar" class="calendar"></div>
+            <div id="linkForm" class="hidden">
+                <h4 id="selectedDate"></h4>
+                <div id="linkInputs"></div>
+                <button class="add-link-btn" onclick="addLinkInput()">+ Add Another</button>
+                <button onclick="saveAllLinks()">Save All Links</button>
+                <div id="savedLinks"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="studentPanel" class="hidden">
+        <div class="header-bar">
+            <h2>Student Panel</h2>
+            <button onclick="logout()" style="width:auto;background:#f44336;">Logout</button>
+        </div>
+
+        <label>Select Class:</label>
+        <select id="studentClassSelect" onchange="showStudentCalendar()">
+            <option value="">-- Select Class --</option>
+            <option value="9">Class 9</option>
+            <option value="10">Class 10</option>
+            <option value="11">Class 11</option>
+            <option value="12">Class 12</option>
+        </select>
+
+        <div id="studentCalendarSection" class="hidden">
+            <div class="calendar-header">
+                <button onclick="prevMonthStudent()">← Prev</button>
+                <h3 id="monthYearStudent"></h3>
+                <button onclick="nextMonthStudent()">Next →</button>
+            </div>
+            <div id="studentCalendar" class="calendar"></div>
+            <div id="studentLinks"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="school-name">KKDGMS</div>
+        <b>Website Developer:</b> VALLIVEL P
     </div>
 </div>
 
-<div class="login-box hidden" id="adminLoginBox">
-    <h2>👨‍🏫 ADMIN LOGIN</h2>
-    <input type="text" id="adminUser" placeholder="Username">
-    <input type="password" id="adminPass" placeholder="Password">
-    <button onclick="adminLogin()">Login</button>
-    <button class="logout" onclick="backToMain()">Back</button>
-</div>
-
-<div class="login-box hidden" id="studentLoginBox">
-    <h2>👨‍🎓 STUDENT LOGIN</h2>
-    <input type="text" id="studentUser" placeholder="Username">
-    <input type="password" id="studentPass" placeholder="Password">
-    <button onclick="studentLogin()">Login</button>
-    <button class="logout" onclick="backToMain()">Back</button>
-</div>
-
-<div class="dashboard hidden" id="adminPanel">
-    <h2>👨‍🏫 ADMIN DASHBOARD</h2>
-    <button class="logout" onclick="logout()">Logout</button>
-    <p class="info">Class Select → Month மாத்தலாம் → Date Click → Link Paste பண்ணி Save பண்ணுங்க</p>
-    <div class="class-btns">
-        <button onclick="openAdminCalendar('9')">Class 9</button>
-        <button onclick="openAdminCalendar('10')">Class 10</button>
-        <button onclick="openAdminCalendar('11')">Class 11</button>
-        <button onclick="openAdminCalendar('12')">Class 12</button>
+<div id="passwordModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closePasswordModal()">&times;</span>
+    <h3>🔒 Change Admin Password</h3>
+    <div id="step1">
+        <input type="password" id="oldPass" placeholder="Enter Old Password">
+        <input type="tel" id="securityAnswer" placeholder="Enter Your Security Answer" inputmode="numeric">
+        <button onclick="verifyStep1()">Verify</button>
     </div>
-    <div id="adminCalendarArea"></div>
-</div>
-
-<div class="dashboard hidden" id="studentPanel">
-    <h2>👨‍🎓 STUDENT DASHBOARD</h2>
-    <button class="logout" onclick="logout()">Logout</button>
-    <p class="info">Class Select → Month மாத்தலாம் → Date Click → Link Open பண்ணுங்க</p>
-    <div class="class-btns">
-        <button onclick="openStudentCalendar('9')">Class 9</button>
-        <button onclick="openStudentCalendar('10')">Class 10</button>
-        <button onclick="openStudentCalendar('11')">Class 11</button>
-        <button onclick="openStudentCalendar('12')">Class 12</button>
+    <div id="step2" class="hidden">
+        <p style="color:green; font-weight:bold;">✅ Verified! Now enter new password</p>
+        <input type="password" id="newPass" placeholder="Enter New Password">
+        <input type="password" id="confirmPass" placeholder="Confirm New Password">
+        <button onclick="finalChangePassword()">Change Password</button>
     </div>
-    <div id="studentCalendarArea"></div>
-</div>
+  </div>
 </div>
 
 <script>
-// FIXED STORAGE KEY - இனி மாத்தாதீங்க
-const STORAGE_KEY = 'kkdgmsData_permanent';
+let currentUser = '';
+let currentClass = '';
+let selectedDate = '';
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+let studentMonth = new Date().getMonth();
+let studentYear = new Date().getFullYear();
+const SECURITY_ANSWER = '9047984396';
 
-function loadData(){
-    try{
-        let data = localStorage.getItem(STORAGE_KEY);
-        console.log("Loaded Data:", data);
-        return data? JSON.parse(data) : { links: {}, views: 0 };
-    } catch(e){
-        console.error("Load Error:", e);
-        return { links: {}, views: 0 };
+function updateDateTime() {
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    document.getElementById('currentDateTime').textContent = now.toLocaleDateString('en-IN', options);
+}
+setInterval(updateDateTime, 1000);
+updateDateTime();
+
+function toggleDark() {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+}
+if(localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
+
+window.onload = function() { updateVisitorCount(); loadNotification(); }
+function updateVisitorCount() {
+    const today = new Date().toDateString();
+    let todayCount = parseInt(localStorage.getItem('kkdgmsTodayCount') || '0');
+    let totalCount = parseInt(localStorage.getItem('kkdgmsTotalCount') || '0');
+    let lastVisitDate = localStorage.getItem('kkdgmsLastVisitDate');
+    if(lastVisitDate!== today) { todayCount = 0; localStorage.setItem('kkdgmsLastVisitDate', today); }
+    if(!sessionStorage.getItem('kkdgmsVisited')) {
+        todayCount++; totalCount++;
+        localStorage.setItem('kkdgmsTodayCount', todayCount);
+        localStorage.setItem('kkdgmsTotalCount', totalCount);
+        sessionStorage.setItem('kkdgmsVisited', 'true');
+    }
+    if(document.getElementById('todayCount')) {
+        document.getElementById('todayCount').textContent = todayCount;
+        document.getElementById('totalCount').textContent = totalCount;
     }
 }
-function saveData(data){
-    try{
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        console.log("Saved Data:", data);
-    } catch(e){
-        alert("Storage Full! பழைய Link-ஐ அழிச்சுட்டு புதுசா Save பண்ணுங்க");
-        console.error("Save Error:", e);
-    }
+
+function getData() { return JSON.parse(localStorage.getItem('kkdgmsData')) || {}; }
+function saveData(data) { localStorage.setItem('kkdgmsData', JSON.stringify(data)); }
+function getNotification() { return localStorage.getItem('kkdgmsNotification') || ''; }
+
+function saveNotification() {
+    const msg = document.getElementById('notificationInput').value.trim();
+    if(msg === '') { alert('Please enter a notification message'); return; }
+    localStorage.setItem('kkdgmsNotification', msg);
+    loadNotification(); alert('Notification Updated!');
 }
-
-let schoolData = loadData();
-
-// DATE + COLORFUL TIME
-function updateDateTime(){
-    let d = new Date();
-    let h = d.getHours(); let m = d.getMinutes(); let s = d.getSeconds();
-    let ampm = h >= 12? 'PM' : 'AM'; h = h % 12; h = h? h : 12;
-    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    document.getElementById('fullDate').innerText = d.toLocaleDateString('en-GB', options);
-    document.getElementById('clock').innerHTML =
-    `<span class="hour">${String(h).padStart(2,'0')}</span>:
-     <span class="min">${String(m).padStart(2,'0')}</span>:
-     <span class="sec">${String(s).padStart(2,'0')}</span>
-     <span class="ampm">${ampm}</span>`;
+function clearNotification() {
+    localStorage.removeItem('kkdgmsNotification');
+    document.getElementById('notificationInput').value = '';
+    loadNotification(); alert('Notification Cleared!');
 }
-setInterval(updateDateTime,1000); updateDateTime();
-
-// VIEWS COUNT
-schoolData.views += 1;
-saveData(schoolData);
-document.getElementById('viewCount').innerText = String(schoolData.views).padStart(4,'0');
-
-// LOGIN
-function showLogin(type){
-    document.getElementById('mainLogin').classList.add('hidden');
-    if(type==='admin') document.getElementById('adminLoginBox').classList.remove('hidden');
-    if(type==='student') document.getElementById('studentLoginBox').classList.remove('hidden');
-}
-function backToMain(){
-    document.getElementById('mainLogin').classList.remove('hidden');
-    document.getElementById('adminLoginBox').classList.add('hidden');
-    document.getElementById('studentLoginBox').classList.add('hidden');
-}
-function adminLogin(){
-    if(document.getElementById('adminUser').value === "kkdgms" && document.getElementById('adminPass').value === "1988"){
-        document.getElementById('adminLoginBox').classList.add('hidden'); document.getElementById('adminPanel').classList.remove('hidden');
-    } else { alert("Username or Password தவறு!"); }
-}
-function studentLogin(){
-    if(document.getElementById('studentUser').value === "kkdgms" && document.getElementById('studentPass').value === "2027"){
-        document.getElementById('studentLoginBox').classList.add('hidden'); document.getElementById('studentPanel').classList.remove('hidden');
-    } else { alert("Username or Password தவறு!"); }
-}
-function logout(){ backToMain(); document.getElementById('adminPanel').classList.add('hidden'); document.getElementById('studentPanel').classList.add('hidden'); }
-
-// CALENDAR
-let currentClass = ""; let isAdminMode = false; let currentArea = ""; let selectedDate = "";
-let calYear = new Date().getFullYear(); let calMonth = new Date().getMonth();
-
-function openAdminCalendar(cls){ currentClass = cls; isAdminMode = true; currentArea = 'adminCalendarArea'; calYear = new Date().getFullYear(); calMonth = new Date().getMonth(); generateCalendar(); }
-function openStudentCalendar(cls){ currentClass = cls; isAdminMode = false; currentArea = 'studentCalendarArea'; calYear = new Date().getFullYear(); calMonth = new Date().getMonth(); generateCalendar(); }
-
-function changeMonth(diff){
-    calMonth += diff;
-    if(calMonth < 0){ calMonth = 11; calYear--; }
-    if(calMonth > 11){ calMonth = 0; calYear++; }
-    generateCalendar();
-}
-
-function generateCalendar(){
-    let firstDay = new Date(calYear, calMonth, 1).getDay();
-    let daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
-    let monthName = new Date(calYear, calMonth).toLocaleString('en',{month:'long', year:'numeric'});
-    let html = `<div class="calendar-nav"><button onclick="changeMonth(-1)">◀ Prev</button><div class="calendar-header">Class ${currentClass} - ${monthName}</div><button onclick="changeMonth(1)">Next ▶</button></div>`;
-    html += `<div class="calendar-weekdays"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div></div>`;
-    html += `<div class="calendar-days">`;
-    for(let i=0; i<firstDay; i++){ html += `<div class="date-box empty"></div>`; }
-    for(let d=1; d<=daysInMonth; d++){
-        let dateKey = `${calYear}-${calMonth+1}-${d}`;
-        let hasLink = schoolData.links[currentClass] && schoolData.links[currentClass][dateKey]? 'has-link' : '';
-        html += `<div class="date-box ${hasLink}" onclick="handleDateClick('${dateKey}')">${d}</div>`;
-    }
-    html += `</div><div class="link-box" id="linkBox_${currentArea}">மேல Date-ஐ Click பண்ணுங்க</div>`;
-    document.getElementById(currentArea).innerHTML = html;
-}
-
-function formatDate(dateStr){
-    let d = new Date(dateStr);
-    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    return d.toLocaleDateString('en-GB', options);
-}
-
-function handleDateClick(date){
-    selectedDate = date;
-    let boxId = `linkBox_${currentArea}`;
-    let formattedDate = formatDate(date);
-
-    if(isAdminMode){
-        let old1 = schoolData.links[currentClass]?.[date]?.link1 || "";
-        let old2 = schoolData.links[currentClass]?.[date]?.link2 || "";
-        let existingLinks = "";
-        if(old1 || old2){
-            existingLinks = `<h4>Already Saved Links:</h4>`;
-            if(old1) existingLinks += `<div class="link-row"><a href="${old1}" target="_blank">▶️ Option 1</a></div>`;
-            if(old2) existingLinks += `<div class="link-row"><a href="${old2}" target="_blank">📚 Option 2</a></div>`;
-        }
-        document.getElementById(boxId).innerHTML = `
-            <div class="day-info">${formattedDate}</div>
-            <h3>Link Add / Update</h3>
-            ${existingLinks}
-            <p class="label">Option 1: Video Link</p>
-            <input type="text" id="linkInput1" placeholder="YouTube / Video Link" value="${old1}">
-            <p class="label">Option 2: Book / PDF Link</p>
-            <input type="text" id="linkInput2" placeholder="Drive / PDF Link" value="${old2}">
-            <button onclick="saveLinks()">💾 Save Links</button>
-        `;
+function loadNotification() {
+    const msg = getNotification();
+    const bar = document.getElementById('marqueeBar');
+    const text = document.getElementById('marqueeText');
+    if(msg && msg.trim()!== '') {
+        text.textContent = msg;
+        bar.classList.add('show');
     } else {
-        let links = schoolData.links[currentClass] && schoolData.links[currentClass][date];
-        if(links && (links.link1 || links.link2)){
-            let html = `<div class="day-info">${formattedDate}</div><h3>Study Materials</h3>`;
-            if(links.link1) html += `<div class="student-link"><a href="${links.link1}" target="_blank">▶️ Option 1: Video Link Click Here</a></div>`;
-            if(links.link2) html += `<div class="student-link"><a href="${links.link2}" target="_blank">📚 Option 2: Book/PDF Link Click Here</a></div>`;
-            document.getElementById(boxId).innerHTML = html;
-        } else {
-            document.getElementById(boxId).innerHTML = `<div class="day-info">${formattedDate}</div><p style="color:red;">❌ இந்த தேதிக்கு Link இல்லை</p>`;
-        }
+        bar.classList.remove('show');
     }
 }
 
-function saveLinks(){
-    let link1 = document.getElementById('linkInput1').value.trim();
-    let link2 = document.getElementById('linkInput2').value.trim();
-    if(!schoolData.links[currentClass]) schoolData.links[currentClass] = {};
-    schoolData.links[currentClass][selectedDate] = {link1: link1, link2: link2};
-    saveData(schoolData);
-    alert("✅ Links Save ஆச்சு!");
-    generateCalendar();
+function searchLinks() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const data = getData(); const results = [];
+    for(let cls in data) {
+        for(let date in data[cls]) {
+            data[cls][date].forEach(link => {
+                if(link.title.toLowerCase().includes(query) && query.length > 0) {
+                    results.push(`Class ${cls} - ${date}: ${link.title}`);
+                }
+            });
+        }
+    }
+    document.getElementById('searchResults').innerHTML = results.length? results.map(r=>`<p>${r}</p>`).join('') : '';
+}
+
+const GOVT_HOLIDAYS = ['2026-1-14', '2026-1-26', '2026-8-15', '2026-10-2'];
+
+function generateCalendar(calendarId, monthYearId, isAdmin) {
+    const calendar = document.getElementById(calendarId);
+    const monthYear = document.getElementById(monthYearId);
+    calendar.innerHTML = '';
+    let m = isAdmin? currentMonth : studentMonth;
+    let y = isAdmin? currentYear : studentYear;
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    monthYear.textContent = `${monthNames[m]} ${y}`;
+    const weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    weekdays.forEach(day => { const d = document.createElement('div'); d.className = 'weekday'; d.textContent = day; calendar.appendChild(d); });
+
+    const data = getData(); const classData = data[currentClass] || {};
+    const firstDay = new Date(y, m, 1).getDay();
+    const daysInMonth = new Date(y, m + 1, 0).getDate();
+    for(let i = 0; i < firstDay; i++) { const empty = document.createElement('div'); empty.className = 'day empty'; calendar.appendChild(empty); }
+
+    for(let i = 1; i <= daysInMonth; i++) {
+        const day = document.createElement('div'); day.className = 'day'; day.textContent = i;
+        const dateKey = `${y}-${m + 1}-${i}`;
+        const dayOfWeek = new Date(y, m, i).getDay();
+        const readLinks = JSON.parse(localStorage.getItem('readLinks') || '[]');
+
+        if(GOVT_HOLIDAYS.includes(dateKey)) {
+            day.classList.add('day-govt');
+        } else if(dayOfWeek === 0) {
+            day.classList.add('day-sunday');
+        } else if(classData[dateKey] && classData[dateKey].length > 0) {
+            day.classList.add(`has-links-${currentClass}`);
+        }
+        if(readLinks.includes(dateKey)) day.classList.add('read');
+        day.onclick = () => selectDate(i, isAdmin);
+        calendar.appendChild(day);
+    }
+}
+
+function selectDate(date, isAdmin) {
+    let m = isAdmin? currentMonth : studentMonth;
+    let y = isAdmin? currentYear : studentYear;
+    selectedDate = `${y}-${m + 1}-${date}`;
+    const dateObj = new Date(y, m, date);
+    const fullDate = dateObj.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    if(isAdmin) {
+        document.getElementById('selectedDate').textContent = `Class ${currentClass} - ${fullDate}`;
+        document.getElementById('linkForm').classList.remove('hidden');
+        document.getElementById('linkInputs').innerHTML = ''; addLinkInput(); loadSavedLinks();
+    } else {
+        let readLinks = JSON.parse(localStorage.getItem('readLinks') || '[]');
+        if(!readLinks.includes(selectedDate)) {
+            readLinks.push(selectedDate);
+            localStorage.setItem('readLinks', JSON.stringify(readLinks));
+        }
+        loadStudentLinks(date, fullDate);
+        generateCalendar('studentCalendar', 'monthYearStudent', false);
+    }
+}
+
+function addLinkInput() {
+    const container = document.getElementById('linkInputs');
+    const count = container.children.length + 1;
+    const div = document.createElement('div'); div.className = 'link-input-group';
+    div.innerHTML = `<label>Topic Name:</label><input type="text" class="linkTitle" placeholder="Enter Topic Name"><label>Link ${count} URL (Optional):</label><input type="url" class="linkUrl" placeholder="Enter URL">`;
+    container.appendChild(div);
+}
+
+function saveAllLinks() {
+    const titles = document.querySelectorAll('.linkTitle'); const urls = document.querySelectorAll('.linkUrl');
+    const data = getData(); if(!data[currentClass]) data[currentClass] = {}; data[currentClass][selectedDate] = [];
+    for(let i = 0; i < titles.length; i++) {
+        if(titles[i].value.trim()) {
+            data[currentClass][selectedDate].push({title: titles[i].value, url: urls[i].value});
+        }
+    }
+    if(data[currentClass][selectedDate].length === 0) { delete data[currentClass][selectedDate]; }
+    saveData(data); loadSavedLinks(); generateCalendar('calendar', 'monthYear', true); alert('Links Saved Successfully!');
+}
+
+function deleteLink(index) {
+    const data = getData(); data[currentClass][selectedDate].splice(index, 1);
+    if(data[currentClass][selectedDate].length === 0) { delete data[currentClass][selectedDate]; }
+    saveData(data); loadSavedLinks(); generateCalendar('calendar', 'monthYear', true);
+}
+
+function loadSavedLinks() {
+    const data = getData(); const links = data[currentClass]?.[selectedDate] || [];
+    const div = document.getElementById('savedLinks'); div.innerHTML = '<h4>Saved Links:</h4>';
+    if(links.length === 0) { div.innerHTML += '<p>No links saved yet</p>'; return; }
+    links.forEach((link, index) => {
+        let urlHtml = link.url? `<a href="${link.url}" target="_blank">${link.url}</a>` : `<p style="color:gray;">No URL</p>`;
+        div.innerHTML += `<div class="link-item"><button class="delete-btn" onclick="deleteLink(${index})">❌</button><span class="link-number">Link ${index + 1}</span><div class="link-title">${link.title}</div>${urlHtml}</div>`;
+    });
+}
+
+function loadStudentLinks(date, fullDate) {
+    let m = studentMonth; let y = studentYear;
+    const dateKey = `${y}-${m + 1}-${date}`;
+    const data = getData(); const links = data[currentClass]?.[dateKey] || [];
+    const readLinks = JSON.parse(localStorage.getItem('readLinks') || '[]');
+    const div = document.getElementById('studentLinks');
+    div.innerHTML = `<h4 style="color:#9C27B0; font-weight:800;">Class ${currentClass} - ${fullDate}</h4>`;
+    if(links.length === 0) { div.innerHTML += '<p>No links available for this date</p>'; }
+    else {
+        links.forEach((link, index) => {
+            const isRead = readLinks.includes(dateKey);
+            let urlHtml = link.url? `<a href="${link.url}" target="_blank">${link.url}</a>` : '';
+            div.innerHTML += `<div class="link-item ${isRead? 'read' : ''}"><span class="link-number">Link ${index + 1} ${isRead? '✓' : ''}</span><div class="link-title">${link.title}</div>${urlHtml}</div>`;
+        });
+    }
+}
+
+// FIXED LOGIN - GUARANTEED ALERT
+function login() {
+    const type = document.getElementById('userType').value;
+    const user = document.getElementById('username').value.trim();
+    const pass = document.getElementById('password').value.trim();
+    const savedAdminPass = localStorage.getItem('adminPassword') || '1988';
+
+    if(user === '' || pass === '') {
+        alert('❌ Username மற்றும் Password-ஐ Enter பண்ணுங்க');
+        return;
+    }
+
+    if(type === 'admin') {
+        if(user!== 'kkdgms') {
+            alert('❌ Username தப்பு! \nசரியான Username: kkdgms');
+            return;
+        }
+        if(pass!== savedAdminPass) {
+            alert('❌ Password தப்பு! \nசரியான Password-ஐ போடுங்க');
+            return;
+        }
+        currentUser = 'admin';
+        document.getElementById('loginSection').classList.add('hidden');
+        document.getElementById('adminPanel').classList.remove('hidden');
+        document.getElementById('notificationInput').value = getNotification();
+        loadNotification();
+        updateVisitorCount();
+    }
+
+    else if(type === 'student') {
+        if(user!== 'kkdgms') {
+            alert('❌ Username தப்பு! \nசரியான Username: kkdgms');
+            return;
+        }
+        if(pass!== '2027') {
+            alert('❌ Password தப்பு! \nசரியான Password: 2027');
+            return;
+        }
+        currentUser = 'student';
+        document.getElementById('loginSection').classList.add('hidden');
+        document.getElementById('studentPanel').classList.remove('hidden');
+        loadNotification();
+    }
+}
+
+function logout() {
+    currentUser = '';
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('userType').value = 'admin';
+    document.getElementById('loginSection').classList.remove('hidden');
+    document.getElementById('adminPanel').classList.add('hidden');
+    document.getElementById('studentPanel').classList.add('hidden');
+}
+
+function showCalendar() { currentClass = document.getElementById('classSelect').value; if(!currentClass) return; document.getElementById('calendarSection').classList.remove('hidden'); generateCalendar('calendar', 'monthYear', true); }
+function showStudentCalendar() { currentClass = document.getElementById('studentClassSelect').value; if(!currentClass) return; document.getElementById('studentCalendarSection').classList.remove('hidden'); generateCalendar('studentCalendar', 'monthYearStudent', false); }
+function prevMonth() { currentMonth--; if(currentMonth < 0) { currentMonth = 11; currentYear--; } generateCalendar('calendar', 'monthYear', true); }
+function nextMonth() { currentMonth++; if(currentMonth > 11) { currentMonth = 0; currentYear++; } generateCalendar('calendar', 'monthYear', true); }
+function prevMonthStudent() { studentMonth--; if(studentMonth < 0) { studentMonth = 11; studentYear--; } generateCalendar('studentCalendar', 'monthYearStudent', false); }
+function nextMonthStudent() { studentMonth++; if(studentMonth > 11) { studentMonth = 0; studentYear++; } generateCalendar('studentCalendar', 'monthYearStudent', false); }
+
+function openPasswordModal() { document.getElementById('passwordModal').style.display = 'block'; document.getElementById('step1').classList.remove('hidden'); document.getElementById('step2').classList.add('hidden'); }
+function closePasswordModal() { document.getElementById('passwordModal').style.display = 'none'; document.getElementById('oldPass').value = ''; document.getElementById('securityAnswer').value = ''; document.getElementById('newPass').value = ''; document.getElementById('confirmPass').value = ''; }
+function verifyStep1() {
+    const oldPass = document.getElementById('oldPass').value;
+    const secAns = document.getElementById('securityAnswer').value.trim();
+    const savedAdminPass = localStorage.getItem('adminPassword') || '1988';
+    if(oldPass!== savedAdminPass) { alert('❌ Old Password Not Match!'); return; }
+    if(secAns!== SECURITY_ANSWER) { alert('❌ Security Answer Not Match!'); return; }
+    document.getElementById('step1').classList.add('hidden');
+    document.getElementById('step2').classList.remove('hidden');
+}
+function finalChangePassword() {
+    const newPass = document.getElementById('newPass').value;
+    const confirmPass = document.getElementById('confirmPass').value;
+    if(newPass!== confirmPass) { alert('❌ New Password and Confirm Password Not Match!'); return; }
+    if(newPass.length < 4) { alert('❌ Password must be atleast 4 characters'); return; }
+    localStorage.setItem('adminPassword', newPass);
+    alert('✅ Password Changed Successfully! \nNew Password: ' + newPass);
+    closePasswordModal();
 }
 </script>
 </body>
