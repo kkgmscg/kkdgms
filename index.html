@@ -92,7 +92,7 @@ body.dark.link { background: #3e2f1e; }
             <div class="box box2" onclick="showLogin('student')">👨‍🎓<br>Student Login</div>
         </div>
         <div class="home-links">
-            <a href="https://ms.tnmodelschools.in/#/login" class="home-link link-staff" target="_blank">👨‍🏫<br>MS Staff Link</a>
+            <a href="https://msms.tnmodelschools.in/#/login" class="home-link link-staff" target="_blank">👨‍🏫<br>MSMS Staff Link</a>
             <a href="https://exams.tnmodelschools.in/login" class="home-link link-exam" target="_blank">📝<br>MSMS Student Exam Portal</a>
         </div>
     </div>
@@ -362,7 +362,7 @@ function loadL(){
 }
 function delL(i){let data=getD(); data[cls][dt].splice(i,1); saveD(data); loadL(); makeCal();}
 
-// FULLY FIXED STUDENT FUNCTIONS
+// FIXED STUDENT FUNCTIONS
 function sClass(c){
     scls=c; sdt='';
     ['sb9','sb10','sb11','sb12'].forEach(i=>document.getElementById(i).classList.remove('active'));
@@ -380,8 +380,8 @@ function makeSCal(){
     for(let i=0;i<f;i++) cal.innerHTML+='<div></div>';
     for(let i=1;i<=days;i++){
         let key=`${sy}-${sm+1}-${i}`;
-        // CRITICAL FIX: Check data[scls][key]
-        let c=data&&data[scls]&&data[scls][key]?'has':'';
+        // FIX: Check scls also
+        let c=data[scls]&&data[scls][key]?'has':'';
         let selected = (sdt === key)? 'selected' : '';
         let sun=new Date(sy,sm,i).getDay()==0?'sun':'';
         cal.innerHTML+=`<div class="day ${c} ${selected} ${sun}" onclick="showSL(${i})">${i}</div>`;
@@ -394,7 +394,7 @@ function showSL(d){
     sdt = key;
     makeSCal();
     let data=getD();
-    // CRITICAL FIX: Read from data[scls][key]
+    // FIX: Read from data[scls][key]
     let links=data?.[scls]?.[key]||[];
     let html=`<h4>Links for ${formatDate(key)}</h4>`;
     links.forEach(l=>{html+=`<div class="link"><b>${l.h}</b><br><a href="${l.u}" target="_blank">${l.u}</a></div>`;});
