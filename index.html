@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>KKDGMS School Website</title>
 <style>
-/* உன் CSS அப்படியே */
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); background-attachment: fixed; transition: 0.3s; }
 body.dark { background: linear-gradient(135deg, #232526 0%, #414345 100%); }
@@ -83,13 +82,8 @@ body.dark.sync-box { background: #1b5e20; }
 <body>
 
 <div class="container">
-    <div class="header">
-        <div style="width:100%"><h1>KKDGMS</h1><p>School Website</p><div class="datetime" id="currentDateTime"></div></div>
-        <button class="dark-btn" onclick="toggleDark()">🌙</button>
-    </div>
-
+    <div class="header"><div style="width:100%"><h1>KKDGMS</h1><p>School Website</p><div class="datetime" id="currentDateTime"></div></div><button class="dark-btn" onclick="toggleDark()">🌙</button></div>
     <div id="marqueeBar" class="marquee"><span id="marqueeText"></span></div>
-
     <div id="loginSection" class="login-form">
         <h2>Login</h2>
         <select id="userType"><option value="admin">Admin</option><option value="student">Student</option></select>
@@ -97,7 +91,6 @@ body.dark.sync-box { background: #1b5e20; }
         <input type="password" id="password" placeholder="Password" autocomplete="off">
         <button onclick="login()">Login</button>
     </div>
-
     <div id="adminPanel" class="hidden">
         <div class="header-bar"><h2>Admin Panel</h2><div><button onclick="openPasswordModal()" style="width:auto;background:#FF9800; margin-right:5px;">🔒 Change Password</button><button onclick="logout()" style="width:auto;background:#f44336;">Logout</button></div></div>
         <div class="visitor-counter"><div class="counter-box"><h4>📅 Today Visitors</h4><div class="count" id="todayCount">0</div></div><div class="counter-box" style="background: linear-gradient(135deg, #2196F3, #1976D2);"><h4>🌍 Total Visitors</h4><div class="count" id="totalCount">0</div></div></div>
@@ -109,14 +102,12 @@ body.dark.sync-box { background: #1b5e20; }
         <div id="calendarSection" class="hidden"><div class="calendar-header"><button onclick="prevMonth()">← Prev</button><h3 id="monthYear"></h3><button onclick="nextMonth()">Next →</button></div><div id="calendar" class="calendar"></div><div id="linkForm" class="hidden"><h4 id="selectedDate"></h4><div id="linkInputs"></div><button class="add-link-btn" onclick="addLinkInput()">+ Add Another</button><button onclick="saveAllLinks()">Save All Links</button><div id="savedLinks"></div></div></div>
         <div class="sync-box"><h4>🔄 Step 1: Generate Data for GitHub</h4><button onclick="prepareData()">Generate Data</button><textarea id="jsonOutput" readonly placeholder="Click 'Generate Data' button, then copy this full data"></textarea><p><b>Step 2:</b> Copy above data > Go to data.json > Edit > Paste > Commit</p></div>
     </div>
-
     <div id="studentPanel" class="hidden">
         <div class="header-bar"><h2>Student Panel</h2><button onclick="logout()" style="width:auto;background:#f44336;">Logout</button></div>
         <label>Select Class:</label>
         <select id="studentClassSelect" onchange="showStudentCalendar()"><option value="">-- Select Class --</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option></select>
         <div id="studentCalendarSection" class="hidden"><div class="calendar-header"><button onclick="prevMonthStudent()">← Prev</button><h3 id="monthYearStudent"></h3><button onclick="nextMonthStudent()">Next →</button></div><div id="studentCalendar" class="calendar"></div><div id="studentLinks"></div></div>
     </div>
-
     <div class="footer"><div class="school-name">KKDGMS</div><b>Website Developer:</b> VALLIVEL P</div>
 </div>
 
@@ -127,26 +118,20 @@ let currentUser = ''; let currentClass = ''; let selectedDate = '';
 let currentMonth = new Date().getMonth(); let currentYear = new Date().getFullYear();
 let studentMonth = new Date().getMonth(); let studentYear = new Date().getFullYear();
 const SECURITY_ANSWER = '9047984396';
-let portalData = { notification: "", links: {} }; // புதுசு
-let dataLoaded = false; // புதுசு
+let portalData = { notification: "", links: {} };
 
-// FIX 1: Page load ஆகும்போது data.json ல இருந்து எடுக்கும்
 async function loadData() {
-    try {
-        let res = await fetch('data.json?v=' + new Date().getTime());
-        portalData = await res.json();
-    } catch(e) { portalData = { notification: "", links: {} }; }
-    dataLoaded = true;
+    try { let res = await fetch('data.json?v=' + new Date().getTime()); portalData = await res.json(); }
+    catch(e) { portalData = { notification: "", links: {} }; }
     loadNotification();
 }
 window.onload = async function() { await loadData(); updateVisitorCount(); }
 
-// FIX 2: Login function - data load ஆகுற வரை wait பண்ணாது
 function login() {
     const type = document.getElementById('userType').value;
     const user = document.getElementById('username').value.trim();
     const pass = document.getElementById('password').value.trim();
-    const savedAdminPass = localStorage.getItem('adminPassword') || '1988'; // இது localStorage-ல தான் இருக்கும்
+    const savedAdminPass = localStorage.getItem('adminPassword') || '1988';
 
     if(user === '' || pass === '') { alert('❌ Username மற்றும் Password-ஐ Enter பண்ணுங்க'); return; }
 
@@ -174,18 +159,36 @@ function saveNotification() { const msg = document.getElementById('notificationI
 function clearNotification() { portalData.notification = ''; document.getElementById('notificationInput').value = ''; loadNotification(); alert('Notification Cleared! Now click Generate Data button'); }
 function loadNotification() { const msg = getNotification(); const bar = document.getElementById('marqueeBar'); const text = document.getElementById('marqueeText'); if(msg && msg.trim()!== '') { text.textContent = msg; bar.classList.add('show'); } else { bar.classList.remove('show'); } }
 function prepareData() { document.getElementById('jsonOutput').value = JSON.stringify(portalData, null, 2); alert('Copy this full data and paste in data.json file in GitHub'); }
-
 function updateDateTime() { const now = new Date(); const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }; document.getElementById('currentDateTime').textContent = now.toLocaleDateString('en-IN', options); }
 setInterval(updateDateTime, 1000); updateDateTime();
 function toggleDark() { document.body.classList.toggle('dark'); localStorage.setItem('darkMode', document.body.classList.contains('dark')); }
 if(localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
 function updateVisitorCount() { const today = new Date().toDateString(); let todayCount = parseInt(localStorage.getItem('kkdgmsTodayCount') || '0'); let totalCount = parseInt(localStorage.getItem('kkdgmsTotalCount') || '0'); let lastVisitDate = localStorage.getItem('kkdgmsLastVisitDate'); if(lastVisitDate!== today) { todayCount = 0; localStorage.setItem('kkdgmsLastVisitDate', today); } if(!sessionStorage.getItem('kkdgmsVisited')) { todayCount++; totalCount++; localStorage.setItem('kkdgmsTodayCount', todayCount); localStorage.setItem('kkdgmsTotalCount', totalCount); sessionStorage.setItem('kkdgmsVisited', 'true'); } if(document.getElementById('todayCount')) { document.getElementById('todayCount').textContent = todayCount; document.getElementById('totalCount').textContent = totalCount; } }
-function searchLinks() { const query = document.getElementById('searchInput').value.toLowerCase(); const data = getData(); const results = []; for(let cls in data) { for(let date in data[cls]) { data[cls][date].forEach(link => { if(link.title.toLowerCase().includes(query) && query.length > 0) { results.push(`Class ${cls} - ${date}: ${link.title}`); } }); } } document.getElementById('searchResults').innerHTML = results.length? results.map(r=>`<p>${r}</p>`).join('') : ''; }
+function searchLinks() { const query = document.getElementById('searchInput').value.toLowerCase(); const data = getData(); const results = []; for(let cls in data) { for(let date in data[cls]) { data[cls][date].forEach(link => { if(link.title.toLowerCase().includes(query) && query.length > 0) { results.push(`Class ${cls} - ${date}: ${link.title}`); } }); } document.getElementById('searchResults').innerHTML = results.length? results.map(r=>`<p>${r}</p>`).join('') : ''; }
 const GOVT_HOLIDAYS = ['2026-1-14', '2026-1-26', '2026-8-15', '2026-10-2'];
 function generateCalendar(calendarId, monthYearId, isAdmin) { const calendar = document.getElementById(calendarId); const monthYear = document.getElementById(monthYearId); calendar.innerHTML = ''; let m = isAdmin? currentMonth : studentMonth; let y = isAdmin? currentYear : studentYear; const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]; monthYear.textContent = `${monthNames[m]} ${y}`; const weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S']; weekdays.forEach(day => { const d = document.createElement('div'); d.className = 'weekday'; d.textContent = day; calendar.appendChild(d); }); const data = getData(); const classData = data[currentClass] || {}; const firstDay = new Date(y, m, 1).getDay(); const daysInMonth = new Date(y, m + 1, 0).getDate(); for(let i = 0; i < firstDay; i++) { const empty = document.createElement('div'); empty.className = 'day empty'; calendar.appendChild(empty); } for(let i = 1; i <= daysInMonth; i++) { const day = document.createElement('div'); day.className = 'day'; day.textContent = i; const dateKey = `${y}-${m + 1}-${i}`; const dayOfWeek = new Date(y, m, i).getDay(); const readLinks = JSON.parse(localStorage.getItem('readLinks') || '[]'); if(GOVT_HOLIDAYS.includes(dateKey)) { day.classList.add('day-govt'); } else if(dayOfWeek === 0) { day.classList.add('day-sunday'); } else if(classData[dateKey] && classData[dateKey].length > 0) { day.classList.add(`has-links-${currentClass}`); } if(readLinks.includes(dateKey)) day.classList.add('read'); day.onclick = () => selectDate(i, isAdmin); calendar.appendChild(day); } }
 function selectDate(date, isAdmin) { let m = isAdmin? currentMonth : studentMonth; let y = isAdmin? currentYear : studentYear; selectedDate = `${y}-${m + 1}-${date}`; const dateObj = new Date(y, m, date); const fullDate = dateObj.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }); if(isAdmin) { document.getElementById('selectedDate').textContent = `Class ${currentClass} - ${fullDate}`; document.getElementById('linkForm').classList.remove('hidden'); document.getElementById('linkInputs').innerHTML = ''; addLinkInput(); loadSavedLinks(); } else { let readLinks = JSON.parse(localStorage.getItem('readLinks') || '[]'); if(!readLinks.includes(selectedDate)) { readLinks.push(selectedDate); localStorage.setItem('readLinks', JSON.stringify(readLinks)); } loadStudentLinks(date, fullDate); generateCalendar('studentCalendar', 'monthYearStudent', false); } }
 function addLinkInput() { const container = document.getElementById('linkInputs'); const count = container.children.length + 1; const div = document.createElement('div'); div.className = 'link-input-group'; div.innerHTML = `<label>Topic Name:</label><input type="text" class="linkTitle" placeholder="Enter Topic Name"><label>Link ${count} URL (Optional):</label><input type="url" class="linkUrl" placeholder="Enter URL">`; container.appendChild(div); }
-function saveAllLinks() { const titles = document.querySelectorAll('.linkTitle'); const urls = document.querySelectorAll('.linkUrl'); const data = getData(); if(!data[currentClass]) data[currentClass] = {}; data[currentClass][selectedDate] = []; for(let i = 0; i < titles.length; i++) { if(titles[i].value.trim()) { data[currentClass][selectedDate].push({title: titles[i].value, url: urls[i].value}); } if(data[currentClass][selectedDate].length === 0) { delete data[currentClass][selectedDate]; } saveData(data); loadSavedLinks(); generateCalendar('calendar', 'monthYear', true); alert('Links Saved! Now click Generate Data button'); }
+
+// FIXED: இங்கதான் bracket தப்பு இருந்தது. இப்போ சரி
+function saveAllLinks() {
+    const titles = document.querySelectorAll('.linkTitle');
+    const urls = document.querySelectorAll('.linkUrl');
+    const data = getData();
+    if(!data[currentClass]) data[currentClass] = {};
+    data[currentClass][selectedDate] = [];
+    for(let i = 0; i < titles.length; i++) {
+        if(titles[i].value.trim()) {
+            data[currentClass][selectedDate].push({title: titles[i].value, url: urls[i].value});
+        }
+    } // <- இந்த bracket தான் விடுபட்டிருந்தது
+    if(data[currentClass][selectedDate].length === 0) { delete data[currentClass][selectedDate]; }
+    saveData(data);
+    loadSavedLinks();
+    generateCalendar('calendar', 'monthYear', true);
+    alert('Links Saved! Now click Generate Data button');
+}
+
 function deleteLink(index) { const data = getData(); data[currentClass][selectedDate].splice(index, 1); if(data[currentClass][selectedDate].length === 0) { delete data[currentClass][selectedDate]; } saveData(data); loadSavedLinks(); generateCalendar('calendar', 'monthYear', true); }
 function loadSavedLinks() { const data = getData(); const links = data[currentClass]?.[selectedDate] || []; const div = document.getElementById('savedLinks'); div.innerHTML = '<h4>Saved Links:</h4>'; if(links.length === 0) { div.innerHTML += '<p>No links saved yet</p>'; return; } links.forEach((link, index) => { let urlHtml = link.url? `<a href="${link.url}" target="_blank">${link.url}</a>` : `<p style="color:gray;">No URL</p>`; div.innerHTML += `<div class="link-item"><button class="delete-btn" onclick="deleteLink(${index})">❌</button><span class="link-number">Link ${index + 1}</span><div class="link-title">${link.title}</div>${urlHtml}</div>`; }); }
 function loadStudentLinks(date, fullDate) { let m = studentMonth; let y = studentYear; const dateKey = `${y}-${m + 1}-${date}`; const data = getData(); const links = data[currentClass]?.[dateKey] || []; const readLinks = JSON.parse(localStorage.getItem('readLinks') || '[]'); const div = document.getElementById('studentLinks'); div.innerHTML = `<h4 style="color:#9C27B0; font-weight:800;">Class ${currentClass} - ${fullDate}</h4>`; if(links.length === 0) { div.innerHTML += '<p>No links available for this date</p>'; } else { links.forEach((link, index) => { const isRead = readLinks.includes(dateKey); let urlHtml = link.url? `<a href="${link.url}" target="_blank">${link.url}</a>` : ''; div.innerHTML += `<div class="link-item ${isRead? 'read' : ''}"><span class="link-number">Link ${index + 1} ${isRead? '✓' : ''}</span><div class="link-title">${link.title}</div>${urlHtml}</div>`; }); } }
