@@ -92,7 +92,7 @@ body.dark.link { background: #3e2f1e; }
             <div class="box box2" onclick="showLogin('student')">👨‍🎓<br>Student Login</div>
         </div>
         <div class="home-links">
-            <a href="https://msms.tnmodelschools.in/#/login" class="home-link link-staff" target="_blank">👨‍🏫<br>MSMS Staff Link</a>
+            <a href="https://ms.tnmodelschools.in/#/login" class="home-link link-staff" target="_blank">👨‍🏫<br>MS Staff Link</a>
             <a href="https://exams.tnmodelschools.in/login" class="home-link link-exam" target="_blank">📝<br>MSMS Student Exam Portal</a>
         </div>
     </div>
@@ -199,7 +199,6 @@ window.onload = function(){
     updateDateTime();
     setInterval(updateDateTime, 1000);
     loadDark();
-    loadNote(); // FIX: Website open ஆனதும் Notification load ஆகும்
 }
 
 function updateDateTime(){
@@ -301,15 +300,7 @@ function chgPass(){
 }
 
 function getNote(){return localStorage.getItem('note')||'';}
-function loadNote(){
-    let n=getNote();
-    if(n && n.trim()!=''){
-        document.getElementById('mtext').innerText=n;
-        document.getElementById('marquee').classList.add('show');
-    } else {
-        document.getElementById('marquee').classList.remove('show');
-    }
-}
+function loadNote(){let n=getNote(); if(n){document.getElementById('mtext').innerText=n; document.getElementById('marquee').classList.add('show');}}
 function saveNote(){let n=document.getElementById('note').value; localStorage.setItem('note',n); loadNote(); alert('Saved');}
 function clearNote(){localStorage.removeItem('note'); document.getElementById('note').value=''; loadNote();}
 
@@ -371,6 +362,7 @@ function loadL(){
 }
 function delL(i){let data=getD(); data[cls][dt].splice(i,1); saveD(data); loadL(); makeCal();}
 
+// FULLY FIXED STUDENT FUNCTIONS
 function sClass(c){
     scls=c; sdt='';
     ['sb9','sb10','sb11','sb12'].forEach(i=>document.getElementById(i).classList.remove('active'));
@@ -388,7 +380,8 @@ function makeSCal(){
     for(let i=0;i<f;i++) cal.innerHTML+='<div></div>';
     for(let i=1;i<=days;i++){
         let key=`${sy}-${sm+1}-${i}`;
-        let c=data&&data&&data[key]?'has':'';
+        // CRITICAL FIX: Check data[scls][key]
+        let c=data&&data[scls]&&data[scls][key]?'has':'';
         let selected = (sdt === key)? 'selected' : '';
         let sun=new Date(sy,sm,i).getDay()==0?'sun':'';
         cal.innerHTML+=`<div class="day ${c} ${selected} ${sun}" onclick="showSL(${i})">${i}</div>`;
@@ -401,7 +394,8 @@ function showSL(d){
     sdt = key;
     makeSCal();
     let data=getD();
-    let links=data?.?.[key]||[];
+    // CRITICAL FIX: Read from data[scls][key]
+    let links=data?.[scls]?.[key]||[];
     let html=`<h4>Links for ${formatDate(key)}</h4>`;
     links.forEach(l=>{html+=`<div class="link"><b>${l.h}</b><br><a href="${l.u}" target="_blank">${l.u}</a></div>`;});
     document.getElementById('slinks').innerHTML=html||'<div style="padding:10px; color:#999;">No links for this date</div>';
