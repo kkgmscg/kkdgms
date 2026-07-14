@@ -11,10 +11,10 @@ body.dark { background: linear-gradient(135deg, #232526 0%, #414345 100%); }
 .container { max-width: 1200px; margin: 0 auto; background: rgba(255,255,255,0.98); padding: 15px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); min-height: 90vh; position: relative; padding-bottom: 70px; }
 body.dark.container { background: #2d2d2d; color: white; }
 .header { background: linear-gradient(90deg, #FF5722, #E91E63); color: white; padding: 20px 15px; text-align: center; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; }
-.header h1 { font-size: clamp(28px, 8vw, 42px); font-weight: 900; margin: 0; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); text-align: center; }
-.header p { font-size: clamp(14px, 4vw, 18px); margin: 8px 0 0; font-weight: 600; text-align: center; }
+.header h1 { font-size: clamp(32px, 9vw, 48px); font-weight: 900; margin: 0; letter-spacing: 3px; text-shadow: 3px 3px 6px rgba(0,0,0,0.4); text-align: center; }
+.header p { font-size: clamp(18px, 5vw, 24px); margin: 8px 0 0; font-weight: 800; text-align: center; letter-spacing: 1px; } /* இதுதான் பெருசாக்குனது */
 .header.datetime { font-size: clamp(12px, 3.5vw, 15px); margin-top: 5px; font-weight: 500; opacity: 0.95; }
-.dark-btn { position: absolute; right: 15px; top: 15px; background: white; color: #333; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 20px; width: auto; }
+.dark-btn { position: absolute; right: 10px; top: 10px; background: white; color: #333; border: none; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 16px; width: auto; } /* இதுதான் சின்னதாக்குனது */
 .footer { position: absolute; bottom: 0; left: 0; right: 0; text-align: center; padding: 12px; background: #333; color: white; border-radius: 0 0 15px 15px; font-size: 13px; }
 .footer.school-name { font-size: 14px; font-weight: bold; letter-spacing: 1px; }
 .marquee { background: #FF9800; color: white; padding: 10px; font-weight: bold; border-radius: 8px; margin-bottom: 15px; overflow: hidden; white-space: nowrap; font-size: clamp(13px, 3.5vw, 16px); display: none; }
@@ -39,10 +39,8 @@ body.dark.day { background: #444; color: white; }
 .day.has-links-11 { background: #4CAF50; color: white; }
 .day.has-links-12 { background: #9C27B0; color: white; }
 .day-sunday { background: #FFE082!important; color: #5D4037!important; border: 2px solid #FFB300; }
-.day-govt { background: #FFCDD2!important; color: #c62828!important; border: 2px solid #e53935; }
 .link-item { background: linear-gradient(90deg, #FFF3E0, #FFE0B2); padding: 12px; margin: 10px 0; border-radius: 10px; border-left: 5px solid #FF5722; word-break: break-word; }
 body.dark.link-item { background: #4a3a2a; }
-.link-number { background: #9C27B0; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; font-size: 12px; display: inline-block; margin-bottom: 8px; }
 .link-title { font-weight: bold; color: #E91E63; margin-bottom: 6px; font-size: clamp(14px, 4vw, 16px); }
 body.dark.link-title { color: #FF8A65; }
 .link-item a { color: #2196F3; text-decoration: none; font-weight: 600; font-size: clamp(13px, 3.8vw, 15px); }
@@ -84,28 +82,19 @@ body.dark.sync-box { background: #1b5e20; }
 
     <div id="adminPanel" class="hidden">
         <div class="header-bar"><h2>Admin Panel</h2><button onclick="logout()" style="width:auto;background:#f44336;">Logout</button></div>
-        
-        <div class="notification-box">
-            <h3>📢 Rolling Notification</h3>
-            <textarea id="notificationInput" rows="3"></textarea>
-            <button onclick="saveNotification()">Update Notification</button>
-        </div>
-
+        <div class="notification-box"><h3>📢 Rolling Notification</h3><textarea id="notificationInput" rows="3"></textarea><button onclick="saveNotification()">Update Notification</button></div>
         <label>Select Class:</label>
         <select id="classSelect" onchange="showCalendar()"><option value="">-- Select Class --</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option></select>
-
         <div id="calendarSection" class="hidden">
             <div class="calendar-header"><button onclick="prevMonth()">← Prev</button><h3 id="monthYear"></h3><button onclick="nextMonth()">Next →</button></div>
             <div id="calendar" class="calendar"></div>
             <div id="linkForm" class="hidden">
-                <h4 id="selectedDate"></h4>
-                <div id="linkInputs"></div>
+                <h4 id="selectedDate"></h4><div id="linkInputs"></div>
                 <button class="add-link-btn" onclick="addLinkInput()">+ Add Another</button>
                 <button onclick="saveAllLinks()">Save All Links</button>
                 <div id="savedLinks"></div>
             </div>
         </div>
-
         <div class="sync-box">
             <h4>🔄 Step 1: Generate Data for GitHub</h4>
             <button onclick="prepareData()">Generate Data</button>
@@ -124,7 +113,6 @@ body.dark.sync-box { background: #1b5e20; }
             <div id="studentLinks"></div>
         </div>
     </div>
-
     <div class="footer"><div class="school-name">KKDGMS</div><b>Website Developer:</b> VALLIVEL P</div>
 </div>
 
@@ -135,31 +123,23 @@ let currentMonth = new Date().getMonth(); let currentYear = new Date().getFullYe
 let studentMonth = new Date().getMonth(); let studentYear = new Date().getFullYear();
 
 async function loadData() {
-    try {
-        let res = await fetch('data.json?v=' + new Date().getTime());
-        portalData = await res.json();
-    } catch(e) { console.log("data.json not found"); }
+    try { let res = await fetch('data.json?v=' + new Date().getTime()); portalData = await res.json(); }
+    catch(e) { console.log("data.json not found"); }
     loadNotification();
 }
 function loadNotification() {
     document.getElementById('marqueeText').textContent = portalData.notification || '';
     if(portalData.notification) document.getElementById('marqueeBar').classList.add('show');
 }
-function saveNotification() {
-    portalData.notification = document.getElementById('notificationInput').value;
-    alert('Notification Updated! Now click Generate Data button');
-    loadNotification();
-}
+function saveNotification() { portalData.notification = document.getElementById('notificationInput').value; alert('Notification Updated! Now click Generate Data button'); loadNotification(); }
 
 function login() {
     let type = document.getElementById('userType').value; let u = document.getElementById('username').value; let p = document.getElementById('password').value;
     if(u === 'kkdgms' && p === '1988' && type === 'admin') {
-        document.getElementById('loginSection').classList.add('hidden');
-        document.getElementById('adminPanel').classList.remove('hidden');
+        document.getElementById('loginSection').classList.add('hidden'); document.getElementById('adminPanel').classList.remove('hidden');
         document.getElementById('notificationInput').value = portalData.notification;
     } else if(u === 'kkdgms' && p === '2027' && type === 'student') {
-        document.getElementById('loginSection').classList.add('hidden');
-        document.getElementById('studentPanel').classList.remove('hidden');
+        document.getElementById('loginSection').classList.add('hidden'); document.getElementById('studentPanel').classList.remove('hidden');
     } else { alert('Wrong Login'); }
 }
 function logout() { location.reload(); }
@@ -187,12 +167,10 @@ function generateCalendar(calendarId, monthYearId, isAdmin) {
 }
 function selectDate(date, isAdmin) {
     let m = isAdmin? currentMonth : studentMonth; let y = isAdmin? currentYear : studentYear;
-    selectedDate = `${y}-${m + 1}-${date}`;
-    const dateObj = new Date(y, m, date); const fullDate = dateObj.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+    selectedDate = `${y}-${m + 1}-${date}`; const dateObj = new Date(y, m, date); const fullDate = dateObj.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
     if(isAdmin) {
         document.getElementById('selectedDate').textContent = `Class ${currentClass} - ${fullDate}`;
-        document.getElementById('linkForm').classList.remove('hidden');
-        document.getElementById('linkInputs').innerHTML = ''; addLinkInput(); loadSavedLinks();
+        document.getElementById('linkForm').classList.remove('hidden'); document.getElementById('linkInputs').innerHTML = ''; addLinkInput(); loadSavedLinks();
     } else { loadStudentLinks(date, fullDate); }
 }
 function addLinkInput() {
@@ -205,9 +183,7 @@ function saveAllLinks() {
     const titles = document.querySelectorAll('.linkTitle'); const urls = document.querySelectorAll('.linkUrl');
     if(!portalData.links[currentClass]) portalData.links[currentClass] = {};
     portalData.links[currentClass][selectedDate] = [];
-    for(let i = 0; i < titles.length; i++) {
-        if(titles[i].value.trim()) { portalData.links[currentClass][selectedDate].push({title: titles[i].value, url: urls[i].value}); }
-    }
+    for(let i = 0; i < titles.length; i++) { if(titles[i].value.trim()) { portalData.links[currentClass][selectedDate].push({title: titles[i].value, url: urls[i].value}); }
     alert('Links Saved! Now click Generate Data button'); loadSavedLinks(); generateCalendar('calendar', 'monthYear', true);
 }
 function loadSavedLinks() {
