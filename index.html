@@ -114,7 +114,8 @@ body.dark.modal-content { background: #3a3a3a; }
         </select>
         <input type="text" id="username" placeholder="Username" autocomplete="off">
         <input type="password" id="password" placeholder="Password" autocomplete="off">
-        <button onclick="login()">Login</button>
+        <button onclick="saveAllLinks()">Save All Links</button>
+        <button onclick="downloadData()" style="background:#FF9800;">📥 Download Data for Phone</button>
     </div>
 
     <div id="adminPanel" class="hidden">
@@ -249,8 +250,18 @@ function toggleDark() {
     localStorage.setItem('darkMode', document.body.classList.contains('dark'));
 }
 if(localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
+    window.onload = async function() { await loadFromGithub(); updateVisitorCount(); loadNotification(); }
 
-window.onload = function() { updateVisitorCount(); loadNotification(); }
+    async function loadFromGithub() {
+        try {
+            let res = await fetch('data.json?v=' + new Date().getTime());
+            if(res.ok) {
+                let githubData = await res.json();
+                localStorage.setItem('kkdgmsData', JSON.stringify(githubData.links || {}));
+                localStorage.setItem('kkdgmsNotification', githubData.notification || '');
+            }
+        } catch(e) { console.log("data.json not found"); }
+    }
 function updateVisitorCount() {
     const today = new Date().toDateString();
     let todayCount = parseInt(localStorage.getItem('kkdgmsTodayCount') || '0');
@@ -505,6 +516,23 @@ function finalChangePassword() {
     alert('✅ Password Changed Successfully! \nNew Password: ' + newPass);
     closePasswordModal();
 }
+    function logout() {
+    // ...உள்ள code...
+}
+
+function downloadData() {
+    const data = localStorage.getItem('kkdgmsData');
+    const notification = localStorage.getItem('kkdgmsNotification');
+    const fullData = { notification: notification || "", links: data? JSON.parse(data) : {} };
+    const blob = new Blob([JSON.stringify(fullData, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'data.json'; a.click();
+    alert('✅ data.json download ஆயிடுச்சு! \nஇதை GitHub-ல Upload பண்ணு');
+}
+</script>
+</body>
+</html>
 </script>
 </body>
 </html>
