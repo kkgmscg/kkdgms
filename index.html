@@ -2,508 +2,403 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KKDGMS School Website</title>
 <style>
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    margin: 0;
-    padding: 10px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    background-attachment: fixed;
-    transition: 0.3s;
+:root {
+    --bg1: #667eea; --bg2: #764ba2; --card: white; --text: #333;
 }
-body.dark { background: linear-gradient(135deg, #232526 0%, #414345 100%); }
-.container { max-width: 1200px; margin: 0 auto; background: rgba(255,255,255,0.98); padding: 15px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); min-height: 90vh; position: relative; padding-bottom: 70px; }
-body.dark.container { background: #2d2d2d; color: white; }
-
-.header { background: linear-gradient(90deg, #FF5722, #E91E63); color: white; padding: 20px 15px; text-align: center; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; }
-.header h1 { font-size: clamp(28px, 8vw, 42px); font-weight: 900; margin: 0; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); text-align: center; }
-.header p { font-size: clamp(14px, 4vw, 18px); margin: 8px 0 0; font-weight: 600; text-align: center; }
-.header.datetime { font-size: clamp(12px, 3.5vw, 15px); margin-top: 5px; font-weight: 500; opacity: 0.95; }
-.dark-btn { position: absolute; right: 15px; top: 15px; background: white; color: #333; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 20px; width: auto; }
-
-.footer { position: absolute; bottom: 0; left: 0; right: 0; text-align: center; padding: 12px; background: #333; color: white; border-radius: 0 0 15px 15px; font-size: 13px; }
-.footer.school-name { font-size: 14px; font-weight: bold; letter-spacing: 1px; }
-
-.marquee { background: #FF9800; color: white; padding: 10px; font-weight: bold; border-radius: 8px; margin-bottom: 15px; overflow: hidden; white-space: nowrap; font-size: clamp(13px, 3.5vw, 16px); display: none; }
+body.dark {
+    --bg1: #1a1a2e; --bg2: #16213e; --card: #2a2a3e; --text: #eee;
+}
+* { box-sizing: border-box; }
+body { font-family: 'Segoe UI', Arial; margin: 0; padding: 10px; background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%); color: var(--text); }
+.container { max-width: 1000px; margin: 0 auto; background: var(--card); padding: 15px; border-radius: 15px; min-height: 90vh; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; padding-bottom: 70px; }
+.header { background: linear-gradient(90deg, #E91E63, #FF5722); color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; box-shadow: 0 4px 15px rgba(0,0,0,0.2); position: relative; }
+.header h1 { margin: 0; font-size: 32px; letter-spacing: 2px; }
+.dark-btn { position: absolute; right: 15px; top: 15px; background: rgba(255,255,255,0.2); border: none; padding: 8px 12px; border-radius: 50%; font-size: 20px; cursor: pointer; }
+.top-datetime { background: linear-gradient(90deg, #00BCD4, #0097A7); color: white; padding: 8px; text-align: center; border-radius: 0 0 10px 10px; margin-bottom: 15px; }
+.marquee { background: linear-gradient(90deg, #FF9800, #F57C00); color: white; padding: 12px; font-weight: bold; border-radius: 8px; margin-bottom: 15px; display: none; overflow: hidden; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
 .marquee.show { display: block; }
-.marquee span { display: inline-block; padding-left: 100%; animation: scroll-left 15s linear infinite; }
-@keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-
-.login-form { max-width: 450px; margin: 20px auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-body.dark.login-form { background: #3a3a3a; }
-input, select, button, textarea { width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; font-weight: 600; }
-body.dark input, body.dark select, body.dark textarea { background: #555; color: white; border-color: #777; }
-button { background: linear-gradient(90deg, #4CAF50, #45a049); color: white; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 16px; min-height: 48px; }
-button:active { transform: scale(0.98); }
-
-option[value="9"] { background: #FF9800; color: white; font-weight: bold; }
-option[value="10"] { background: #2196F3; color: white; font-weight: bold; }
-option[value="11"] { background: #4CAF50; color: white; font-weight: bold; }
-option[value="12"] { background: #9C27B0; color: white; font-weight: bold; }
-
-.calendar-header { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; gap: 8px; }
-.calendar-header button { width: auto; padding: 10px 12px; font-size: 14px; flex-shrink: 0; }
-.calendar-header h3 { font-size: clamp(16px, 4.5vw, 20px); margin: 0; text-align: center; flex: 1; }
-.calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin: 10px 0; }
-.weekday { text-align: center; font-weight: bold; padding: 8px 2px; background: #FF5722; color: white; border-radius: 6px; font-size: clamp(11px, 3vw, 14px); }
-.day { padding: 12px 2px; text-align: center; background: #f5f5f5; cursor: pointer; border-radius: 8px; transition: 0.2s; font-weight: 800; font-size: clamp(14px, 4vw, 16px); min-height: 45px; display: flex; align-items: center; justify-content: center; position: relative; }
-body.dark.day { background: #444; color: white; }
-.day:active { transform: scale(0.95); }
-.day.empty { background: transparent; cursor: default; }
-.day.read::after { content: '✓'; position: absolute; top: 2px; right: 4px; font-size: 12px; color: #4CAF50; }
-.day.has-links-9 { background: #FF9800; color: white; }
-.day.has-links-10 { background: #2196F3; color: white; }
-.day.has-links-11 { background: #4CAF50; color: white; }
-.day.has-links-12 { background: #9C27B0; color: white; }
-.day-sunday { background: #FFE082!important; color: #5D4037!important; border: 2px solid #FFB300; }
-.day-govt { background: #FFCDD2!important; color: #c62828!important; border: 2px solid #e53935; }
-
-.link-item { background: linear-gradient(90deg, #FFF3E0, #FFE0B2); padding: 12px; margin: 10px 0; border-radius: 10px; border-left: 5px solid #FF5722; word-break: break-word; }
-body.dark.link-item { background: #4a3a2a; }
-.link-number { background: #9C27B0; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; font-size: 12px; display: inline-block; margin-bottom: 8px; }
-.link-title { font-weight: bold; color: #E91E63; margin-bottom: 6px; font-size: clamp(14px, 4vw, 16px); }
-body.dark.link-title { color: #FF8A65; }
-.link-item a { color: #2196F3; text-decoration: none; font-weight: 600; font-size: clamp(13px, 3.8vw, 15px); }
-.link-item.read { opacity: 0.6; }
-.delete-btn { background: #f44336; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; width: auto; margin: 0; float: right; font-size: 14px; min-height: 36px; }
-.add-link-btn { background: #2196F3; margin-top: 10px; }
-.hidden { display: none; }
-.header-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-.header-bar h2 { font-size: clamp(20px, 5.5vw, 24px); margin: 0; }
-.link-input-group { margin-bottom: 15px; border: 1px dashed #ccc; padding: 10px; border-radius: 8px; background: #f9f9f9; }
-body.dark.link-input-group { background: #3a3a3a; border-color: #666; }
-.notification-box { background: #fff3e0; padding: 12px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #FF9800; }
-body.dark.notification-box { background: #4a3a2a; }
-.search-box { margin: 15px 0; }
-.search-box input { background: #E3F2FD; }
-.visitor-counter { display: flex; gap: 10px; margin: 15px 0; }
-.counter-box { flex: 1; background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 15px; border-radius: 10px; text-align: center; }
-.counter-box h4 { margin: 0; font-size: 14px; }
-.counter-box.count { font-size: 28px; font-weight: 900; margin-top: 5px; }
-.section-title { background: linear-gradient(90deg, #FF5722, #9C27B0); color: white; padding: 12px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-size: clamp(16px, 4.5vw, 18px); font-weight: bold; }
-.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); overflow: auto; }
-.modal-content { background: white; margin: 10% auto; padding: 20px; border-radius: 15px; width: 90%; max-width: 400px; }
-body.dark.modal-content { background: #3a3a3a; }
-.close-btn { float: right; font-size: 28px; font-weight: bold; cursor: pointer; color: #aaa; }
+.marquee span { display: inline-block; padding-left: 100%; animation: scroll 25s linear infinite; }
+@keyframes scroll { 0% { transform: translateX(0%); } 100% { transform: translateX(-100%); } }
+.top-datetime.date { font-size: 14px; font-weight: bold; }
+.top-datetime.time { font-size: 16px; font-weight: 900; letter-spacing: 1px; color: #FFFF00; }
+.login-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.box { padding: 30px; border-radius: 12px; text-align: center; cursor: pointer; font-size: 18px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; }
+.box:hover { transform: translateY(-5px); }
+.box1 { background: linear-gradient(135deg, #E3F2FD, #BBDEFB); border: 3px solid #2196F3; }
+.box2 { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); border: 3px solid #4CAF50; }
+.home-links { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+.home-link { padding: 25px; border-radius: 12px; text-align: center; text-decoration: none; font-size: 17px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: 0.3s; }
+.home-link:hover { transform: translateY(-3px); }
+.link-staff { background: linear-gradient(135deg, #E1BEE7, #CE93D8); color: #4A148C; border: 2px solid #AB47BC; }
+.link-exam { background: linear-gradient(135deg, #FFCCBC, #FFAB91); color: #BF360C; border: 2px solid #FF7043; }
+.login-form { max-width: 400px; margin: 20px auto; background: #f5f5f5; padding: 20px; border-radius: 10px; display: none; border: 2px solid #E91E63; }
+body.dark.login-form { background: #333; }
+.panel { display: none; }
+.stats { display: flex; gap: 10px; margin: 15px 0; }
+.stat { flex: 1; color: white; padding: 15px; border-radius: 8px; text-align: center; font-size: 16px; font-weight: bold; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+.stat-today { background: linear-gradient(135deg, #00BCD4, #0097A7); }
+.stat-total { background: linear-gradient(135deg, #E91E63, #C2185B); }
+.stat b { font-size: 28px; display: block; margin-top: 5px; }
+.classes { display: flex; gap: 10px; margin: 15px 0; flex-wrap: wrap; }
+.cls { flex: 1; min-width: 100px; padding: 15px; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+.c9 { background: #FF9800; }.c10 { background: #2196F3; }.c11 { background: #4CAF50; }.c12 { background: #9C27B0; }
+.cls.active { border: 4px solid #000; transform: scale(1.05); }
+.admin-tabs { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 3px solid #ddd; }
+.tab-btn { padding: 12px 25px; border: none; border-radius: 8px 8px 0 0; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s; }
+.tab-dashboard { background: linear-gradient(90deg, #2196F3, #1976D2); color: white; }
+.tab-settings { background: linear-gradient(90deg, #FF9800, #F57C00); color: white; }
+.tab-btn.active { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); border-bottom: 4px solid #fff; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.calendar { display: grid; grid-template-columns: repeat(7,1fr); gap: 5px; }
+.day { padding: 12px; background: #f0f0f0; text-align: center; cursor: pointer; border-radius: 5px; font-weight: bold; }
+body.dark.day { background: #444; }
+.day.has { background: #4CAF50; color: white; }
+.day.sun { background: #FFCDD2; color: #C62828; }
+.day.selected { background: #2196F3; color: white; border: 3px solid #0D47A1; }
+.week { background: #E91E63; color: white; font-weight: bold; padding: 8px; border-radius: 5px; text-align: center; }
+input, button, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #ccc; border-radius: 5px; font-size: 16px; background: var(--card); color: var(--text); }
+#user { font-weight: bold; font-size: 18px; }
+.small-btn { width: auto; padding: 6px 12px; font-size: 14px; display: inline-block; }
+button { background: linear-gradient(90deg, #4CAF50, #45a049); color: white; border: none; cursor: pointer; font-weight: bold; border-radius: 8px; }
+.link { background: #FFF3E0; padding: 10px; margin: 5px 0; border-left: 4px solid #FF5722; border-radius: 5px; }
+body.dark.link { background: #3e2f1e; }
+.footer { position: absolute; bottom: 0; left: 0; right: 0; text-align: center; padding: 15px; background: #333; color: white; border-radius: 0 0 15px 15px; }
 </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <div style="width:100%">
-            <h1>KKDGMS</h1>
-            <p>School Website</p>
-            <div class="datetime" id="currentDateTime"></div>
-        </div>
         <button class="dark-btn" onclick="toggleDark()">🌙</button>
+        <h1>KKDGMS</h1>
+        <p>School Website Portal</p>
     </div>
 
-    <div id="marqueeBar" class="marquee">
-        <span id="marqueeText"></span>
+    <div class="top-datetime">
+        <div class="date" id="homeDate"></div>
+        <div class="time" id="homeTime"></div>
     </div>
 
-    <div id="loginSection" class="login-form">
-        <h2>Login</h2>
-        <select id="userType">
-            <option value="admin">Admin</option>
-            <option value="student">Student</option>
-        </select>
-        <input type="text" id="username" placeholder="Username" autocomplete="off">
-        <input type="password" id="password" placeholder="Password" autocomplete="off">
-        <button onclick="login()">Login</button>
+    <div id="marquee" class="marquee"><span id="mtext"></span></div>
+
+    <div id="home">
+        <h2 style="text-align:center; color:#E91E63;">Welcome</h2>
+        <div class="login-grid">
+            <div class="box box1" onclick="showLogin('admin')">👨‍💼<br>Admin Login</div>
+            <div class="box box2" onclick="showLogin('student')">👨‍🎓<br>Student Login</div>
+        </div>
+        <div class="home-links">
+            <a href="https://msms.tnmodelschools.in/#/login" class="home-link link-staff" target="_blank">👨‍🏫<br>MSMS Staff Link</a>
+            <a href="https://exams.tnmodelschools.in/login" class="home-link link-exam" target="_blank">📝<br>MSMS Student Exam Portal</a>
+        </div>
     </div>
 
-    <div id="adminPanel" class="hidden">
-        <div class="header-bar">
-            <h2>Admin Panel</h2>
-            <div>
-                <button onclick="openPasswordModal()" style="width:auto;background:#FF9800; margin-right:5px;">🔒 Change Password</button>
-                <button onclick="logout()" style="width:auto;background:#f44336;">Logout</button>
+    <div id="login" class="login-form">
+        <h3 id="ltitle">Login</h3>
+        <input type="hidden" id="utype">
+        <input type="text" id="user" placeholder="Username">
+        <input type="password" id="pass" placeholder="Password">
+        <button onclick="doLogin()">Login</button>
+        <button onclick="backHome()" style="background:#999;">Back</button>
+    </div>
+
+    <div id="admin" class="panel">
+        <h2 style="color:#2196F3;">Admin Panel</h2>
+        <div class="admin-tabs">
+            <button class="tab-btn tab-dashboard active" onclick="openTab('dashboard')">📊 Dashboard</button>
+            <button class="tab-btn tab-settings" onclick="openTab('settings')">⚙️ Settings</button>
+        </div>
+        <div id="dashboard" class="tab-content active">
+            <div class="stats">
+                <div class="stat stat-today">Today Views<br><b id="t">0</b></div>
+                <div class="stat stat-total">Total Views<br><b id="tot">0</b></div>
+            </div>
+            <h3>Rolling Notification</h3>
+            <textarea id="note" rows="2"></textarea>
+            <button onclick="saveNote()">Save Notification</button>
+            <button onclick="clearNote()" style="background:#f44336;">Clear</button>
+            <h3>Select Class</h3>
+            <div class="classes">
+                <button class="cls c9" id="b9" onclick="pickClass('class_9')">Class 9</button>
+                <button class="cls c10" id="b10" onclick="pickClass('class_10')">Class 10</button>
+                <button class="cls c11" id="b11" onclick="pickClass('class_11')">Class 11</button>
+                <button class="cls c12" id="b12" onclick="pickClass('class_12')">Class 12</button>
+            </div>
+            <div id="calDiv" style="display:none;">
+                <h3 id="cname"></h3>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <button class="small-btn" onclick="pm()">← Prev</button>
+                    <b id="my"></b>
+                    <button class="small-btn" onclick="nm()">Next →</button>
+                </div>
+                <div id="cal" class="calendar"></div>
+            </div>
+            <div id="linkDiv" style="display:none;">
+                <h3>Links for <span id="d"></span></h3>
+                <input id="ht" placeholder="Topic Name">
+                <input id="lu" placeholder="Link URL">
+                <button onclick="addL()">Add Link</button>
+                <div id="llist"></div>
+                <button onclick="backCal()" style="background:#999;">Back to Calendar</button>
             </div>
         </div>
-
-        <div class="visitor-counter">
-            <div class="counter-box">
-                <h4>📅 Today Visitors</h4>
-                <div class="count" id="todayCount">0</div>
+        <div id="settings" class="tab-content">
+            <h3>🔒 Security Verification</h3>
+            <div id="securityStep">
+                <input id="secAnswer" type="text" placeholder="Enter Mobile Number">
+                <button onclick="verifySecurity()">Verify</button>
             </div>
-            <div class="counter-box" style="background: linear-gradient(135deg, #2196F3, #1976D2);">
-                <h4>🌍 Total Visitors</h4>
-                <div class="count" id="totalCount">0</div>
-            </div>
-        </div>
-
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="🔍 Search Link Title..." onkeyup="searchLinks()">
-            <div id="searchResults"></div>
-        </div>
-
-        <div class="notification-box">
-            <h3>📢 Rolling Notification</h3>
-            <textarea id="notificationInput" rows="3" placeholder="Enter notification message..."></textarea>
-            <button onclick="saveNotification()">Update Notification</button>
-            <button onclick="clearNotification()" style="background:#f44336;">Clear</button>
-        </div>
-
-        <div class="section-title">📚 Class Links Management</div>
-        <label>Select Class:</label>
-        <select id="classSelect" onchange="showCalendar()">
-            <option value="">-- Select Class --</option>
-            <option value="9">Class 9</option>
-            <option value="10">Class 10</option>
-            <option value="11">Class 11</option>
-            <option value="12">Class 12</option>
-        </select>
-
-        <div id="calendarSection" class="hidden">
-            <div class="calendar-header">
-                <button onclick="prevMonth()">← Prev</button>
-                <h3 id="monthYear"></h3>
-                <button onclick="nextMonth()">Next →</button>
-            </div>
-            <div id="calendar" class="calendar"></div>
-            <div id="linkForm" class="hidden">
-                <h4 id="selectedDate"></h4>
-                <div id="linkInputs"></div>
-                <button class="add-link-btn" onclick="addLinkInput()">+ Add Another</button>
-                <button onclick="saveAllLinks()">Save All Links</button>
-                <div id="savedLinks"></div>
+            <div id="passwordStep" style="display:none;">
+                <h4 style="color:green;">✅ Verified! Change Password</h4>
+                <input id="oldp" type="password" placeholder="Old Password">
+                <input id="newp" type="password" placeholder="New Password">
+                <button onclick="chgPass()">Update Password</button>
+                <button onclick="cancelPassChange()" style="background:#999;">Cancel</button>
             </div>
         </div>
+        <button onclick="logout()" style="background:#999; margin-top:20px;">Logout</button>
     </div>
 
-    <div id="studentPanel" class="hidden">
-        <div class="header-bar">
-            <h2>Student Panel</h2>
-            <button onclick="logout()" style="width:auto;background:#f44336;">Logout</button>
+    <div id="student" class="panel">
+        <h2 style="color:#4CAF50;">Student Panel</h2>
+        <h3>Select Class</h3>
+        <div class="classes">
+            <button class="cls c9" id="sb9" onclick="sClass('class_9')">Class 9</button>
+            <button class="cls c10" id="sb10" onclick="sClass('class_10')">Class 10</button>
+            <button class="cls c11" id="sb11" onclick="sClass('class_11')">Class 11</button>
+            <button class="cls c12" id="sb12" onclick="sClass('class_12')">Class 12</button>
         </div>
-
-        <label>Select Class:</label>
-        <select id="studentClassSelect" onchange="showStudentCalendar()">
-            <option value="">-- Select Class --</option>
-            <option value="9">Class 9</option>
-            <option value="10">Class 10</option>
-            <option value="11">Class 11</option>
-            <option value="12">Class 12</option>
-        </select>
-
-        <div id="studentCalendarSection" class="hidden">
-            <div class="calendar-header">
-                <button onclick="prevMonthStudent()">← Prev</button>
-                <h3 id="monthYearStudent"></h3>
-                <button onclick="nextMonthStudent()">Next →</button>
+        <div id="scalDiv" style="display:none;">
+            <h3 id="scname"></h3>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <button class="small-btn" onclick="spm()">← Prev</button>
+                <b id="smy"></b>
+                <button class="small-btn" onclick="snm()">Next →</button>
             </div>
-            <div id="studentCalendar" class="calendar"></div>
-            <div id="studentLinks"></div>
+            <div id="scal" class="calendar"></div>
+            <div id="slinks"></div>
         </div>
+        <button onclick="logout()" style="background:#999; margin-top:20px;">Logout</button>
     </div>
 
-    <div class="footer">
-        <div class="school-name">KKDGMS</div>
-        <b>Website Developer:</b> VALLIVEL P
-    </div>
-</div>
-
-<div id="passwordModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closePasswordModal()">&times;</span>
-    <h3>🔒 Change Admin Password</h3>
-    <div id="step1">
-        <input type="password" id="oldPass" placeholder="Enter Old Password">
-        <input type="tel" id="securityAnswer" placeholder="Enter Your Security Answer" inputmode="numeric">
-        <button onclick="verifyStep1()">Verify</button>
-    </div>
-    <div id="step2" class="hidden">
-        <p style="color:green; font-weight:bold;">✅ Verified! Now enter new password</p>
-        <input type="password" id="newPass" placeholder="Enter New Password">
-        <input type="password" id="confirmPass" placeholder="Confirm New Password">
-        <button onclick="finalChangePassword()">Change Password</button>
-    </div>
-  </div>
+    <div class="footer"><b>Website Developer:</b> VALLIVEL P</div>
 </div>
 
 <script>
-let currentUser = '';
-let currentClass = '';
-let selectedDate = '';
-let currentMonth = new Date().getMonth();
-let currentYear = new Date().getFullYear();
-let studentMonth = new Date().getMonth();
-let studentYear = new Date().getFullYear();
-const SECURITY_ANSWER = '9047984396';
+let cls='class_9', scls='class_9', dt='', m=new Date().getMonth(), y=new Date().getFullYear();
+let sm=new Date().getMonth(), sy=new Date().getFullYear();
+let sdt = '';
+let adt = '';
+const ADMIN_PHONE = '9047984396';
 
-function updateDateTime() {
+window.onload = function(){
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+    loadDark();
+}
+
+function updateDateTime(){
     const now = new Date();
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-    document.getElementById('currentDateTime').textContent = now.toLocaleDateString('en-IN', options);
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('homeDate').innerText = now.toLocaleDateString('en-US', options);
+    document.getElementById('homeTime').innerText = now.toLocaleTimeString('en-US');
 }
-setInterval(updateDateTime, 1000);
-updateDateTime();
 
-function toggleDark() {
+function toggleDark(){
     document.body.classList.toggle('dark');
-    localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+    let mode = document.body.classList.contains('dark')? 'dark' : 'light';
+    localStorage.setItem('theme', mode);
+    document.querySelector('.dark-btn').innerText = mode=='dark'? '☀️' : '🌙';
 }
-if(localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
-
-window.onload = function() { updateVisitorCount(); loadNotification(); }
-function updateVisitorCount() {
-    const today = new Date().toDateString();
-    let todayCount = parseInt(localStorage.getItem('kkdgmsTodayCount') || '0');
-    let totalCount = parseInt(localStorage.getItem('kkdgmsTotalCount') || '0');
-    let lastVisitDate = localStorage.getItem('kkdgmsLastVisitDate');
-    if(lastVisitDate!== today) { todayCount = 0; localStorage.setItem('kkdgmsLastVisitDate', today); }
-    if(!sessionStorage.getItem('kkdgmsVisited')) {
-        todayCount++; totalCount++;
-        localStorage.setItem('kkdgmsTodayCount', todayCount);
-        localStorage.setItem('kkdgmsTotalCount', totalCount);
-        sessionStorage.setItem('kkdgmsVisited', 'true');
-    }
-    if(document.getElementById('todayCount')) {
-        document.getElementById('todayCount').textContent = todayCount;
-        document.getElementById('totalCount').textContent = totalCount;
+function loadDark(){
+    if(localStorage.getItem('theme')=='dark'){
+        document.body.classList.add('dark');
+        document.querySelector('.dark-btn').innerText = '☀️';
     }
 }
 
-function getData() { return JSON.parse(localStorage.getItem('kkdgmsData')) || {}; }
-function saveData(data) { localStorage.setItem('kkdgmsData', JSON.stringify(data)); }
-function getNotification() { return localStorage.getItem('kkdgmsNotification') || ''; }
+function openTab(tabName){
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById(tabName).classList.add('active');
+}
 
-function saveNotification() {
-    const msg = document.getElementById('notificationInput').value.trim();
-    if(msg === '') { alert('Please enter a notification message'); return; }
-    localStorage.setItem('kkdgmsNotification', msg);
-    loadNotification(); alert('Notification Updated!');
+function showLogin(t){
+    document.getElementById('home').style.display='none';
+    document.getElementById('login').style.display='block';
+    document.getElementById('utype').value=t;
+    document.getElementById('ltitle').innerText=t=='admin'?'Admin Login':'Student Login';
 }
-function clearNotification() {
-    localStorage.removeItem('kkdgmsNotification');
-    document.getElementById('notificationInput').value = '';
-    loadNotification(); alert('Notification Cleared!');
+function backHome(){
+    document.getElementById('home').style.display='block';
+    document.getElementById('login').style.display='none';
+    document.getElementById('user').value=''; document.getElementById('pass').value='';
 }
-function loadNotification() {
-    const msg = getNotification();
-    const bar = document.getElementById('marqueeBar');
-    const text = document.getElementById('marqueeText');
-    if(msg && msg.trim()!== '') {
-        text.textContent = msg;
-        bar.classList.add('show');
+
+function doLogin(){
+    let t=document.getElementById('utype').value;
+    let u=document.getElementById('user').value;
+    let p=document.getElementById('pass').value;
+    let ap=localStorage.getItem('apass')||'1988';
+    if(t=='admin' && u=='kkdgms' && p==ap){
+        document.getElementById('login').style.display='none';
+        document.getElementById('admin').style.display='block';
+        updateViews(); loadNote(); document.getElementById('note').value=getNote();
+        pickClass('class_9');
+    }
+    else if(t=='student' && u=='kkdgms' && p=='2027'){
+        document.getElementById('login').style.display='none';
+        document.getElementById('student').style.display='block';
+        sClass('class_9');
+    }
+    else{ alert('Login Failed!'); }
+}
+function logout(){
+    document.getElementById('admin').style.display='none';
+    document.getElementById('student').style.display='none';
+    backHome();
+}
+
+function updateViews(){
+    let today=new Date().toDateString();
+    let last=localStorage.getItem('last');
+    let tot=parseInt(localStorage.getItem('tot'))||0;
+    let t=parseInt(localStorage.getItem('t'))||0;
+    if(last!=today){t=0; localStorage.setItem('last',today);}
+    tot++; t++;
+    localStorage.setItem('tot',tot); localStorage.setItem('t',t);
+    document.getElementById('tot').innerText=tot;
+    document.getElementById('t').innerText=t;
+}
+
+function verifySecurity(){
+    let ans = document.getElementById('secAnswer').value.trim();
+    if(ans === ADMIN_PHONE){
+        document.getElementById('securityStep').style.display='none';
+        document.getElementById('passwordStep').style.display='block';
     } else {
-        bar.classList.remove('show');
+        alert('❌ Access Denied!');
     }
 }
-
-function searchLinks() {
-    const query = document.getElementById('searchInput').value.toLowerCase();
-    const data = getData(); const results = [];
-    for(let cls in data) {
-        for(let date in data[cls]) {
-            data[cls][date].forEach(link => {
-                if(link.title.toLowerCase().includes(query) && query.length > 0) {
-                    results.push(`Class ${cls} - ${date}: ${link.title}`);
-                }
-            });
-        }
-    }
-    document.getElementById('searchResults').innerHTML = results.length? results.map(r=>`<p>${r}</p>`).join('') : '';
+function cancelPassChange(){
+    document.getElementById('securityStep').style.display='block';
+    document.getElementById('passwordStep').style.display='none';
+    document.getElementById('secAnswer').value='';
+}
+function chgPass(){
+    let o=document.getElementById('oldp').value;
+    let n=document.getElementById('newp').value;
+    if(o!=(localStorage.getItem('apass')||'1988')){alert('Wrong Old Password');return;}
+    localStorage.setItem('apass',n);
+    alert('✅ Password Changed: '+n);
+    cancelPassChange();
 }
 
-const GOVT_HOLIDAYS = ['2026-1-14', '2026-1-26', '2026-8-15', '2026-10-2'];
+function getNote(){return localStorage.getItem('note')||'';}
+function loadNote(){let n=getNote(); if(n){document.getElementById('mtext').innerText=n; document.getElementById('marquee').classList.add('show');}}
+function saveNote(){let n=document.getElementById('note').value; localStorage.setItem('note',n); loadNote(); alert('Saved');}
+function clearNote(){localStorage.removeItem('note'); document.getElementById('note').value=''; loadNote();}
 
-function generateCalendar(calendarId, monthYearId, isAdmin) {
-    const calendar = document.getElementById(calendarId);
-    const monthYear = document.getElementById(monthYearId);
-    calendar.innerHTML = '';
-    let m = isAdmin? currentMonth : studentMonth;
-    let y = isAdmin? currentYear : studentYear;
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    monthYear.textContent = `${monthNames[m]} ${y}`;
-    const weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-    weekdays.forEach(day => { const d = document.createElement('div'); d.className = 'weekday'; d.textContent = day; calendar.appendChild(d); });
+function getD(){return JSON.parse(localStorage.getItem('data'))||{};}
+function saveD(d){localStorage.setItem('data',JSON.stringify(d));}
 
-    const data = getData(); const classData = data[currentClass] || {};
-    const firstDay = new Date(y, m, 1).getDay();
-    const daysInMonth = new Date(y, m + 1, 0).getDate();
-    for(let i = 0; i < firstDay; i++) { const empty = document.createElement('div'); empty.className = 'day empty'; calendar.appendChild(empty); }
+function formatDate(dateStr){
+    let parts = dateStr.split('-');
+    return `${parts[2]}-${parts[1]}-${parts[0]}`;
+}
 
-    for(let i = 1; i <= daysInMonth; i++) {
-        const day = document.createElement('div'); day.className = 'day'; day.textContent = i;
-        const dateKey = `${y}-${m + 1}-${i}`;
-        const dayOfWeek = new Date(y, m, i).getDay();
-        const readLinks = JSON.parse(localStorage.getItem('readLinks') || '[]');
-
-        if(GOVT_HOLIDAYS.includes(dateKey)) {
-            day.classList.add('day-govt');
-        } else if(dayOfWeek === 0) {
-            day.classList.add('day-sunday');
-        } else if(classData[dateKey] && classData[dateKey].length > 0) {
-            day.classList.add(`has-links-${currentClass}`);
-        }
-        if(readLinks.includes(dateKey)) day.classList.add('read');
-        day.onclick = () => selectDate(i, isAdmin);
-        calendar.appendChild(day);
+function pickClass(c){
+    cls=c; adt='';
+    ['9','10','11','12'].forEach(i=>document.getElementById('b'+i).classList.remove('active'));
+    document.getElementById('b'+c.split('_')[1]).classList.add('active');
+    document.getElementById('cname').innerText=c.replace('_',' ');
+    document.getElementById('calDiv').style.display='block';
+    makeCal();
+}
+function makeCal(){
+    let cal=document.getElementById('cal'); cal.innerHTML='';
+    let mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    document.getElementById('my').innerText=mn[m]+' '+y;
+    'Sun Mon Tue Wed Thu Fri Sat'.split(' ').forEach(d=>cal.innerHTML+=`<div class="week">${d}</div>`);
+    let f=new Date(y,m,1).getDay(); let days=new Date(y,m+1,0).getDate(); let data=getD();
+    for(let i=0;i<f;i++) cal.innerHTML+='<div></div>';
+    for(let i=1;i<=days;i++){
+        let key=`${y}-${m+1}-${i}`;
+        let c=data[cls]&&data[cls][key]?'has':'';
+        let selected = (adt === key)? 'selected' : '';
+        let sun=new Date(y,m,i).getDay()==0?'sun':'';
+        cal.innerHTML+=`<div class="day ${c} ${selected} ${sun}" onclick="pickDate(${i})">${i}</div>`;
     }
 }
+function pm(){m--; if(m<0){m=11;y--;} adt=''; makeCal();}
+function nm(){m++; if(m>11){m=0;y++;} adt=''; makeCal();}
+function pickDate(d){
+    dt=`${y}-${m+1}-${d}`;
+    adt = dt;
+    makeCal();
+    document.getElementById('d').innerText=formatDate(dt);
+    document.getElementById('linkDiv').style.display='block';
+    loadL();
+}
+function backCal(){document.getElementById('linkDiv').style.display='none';}
 
-function selectDate(date, isAdmin) {
-    let m = isAdmin? currentMonth : studentMonth;
-    let y = isAdmin? currentYear : studentYear;
-    selectedDate = `${y}-${m + 1}-${date}`;
-    const dateObj = new Date(y, m, date);
-    const fullDate = dateObj.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+function addL(){
+    let h=document.getElementById('ht').value; let u=document.getElementById('lu').value;
+    if(!h){alert('Enter Topic');return;}
+    let data=getD(); if(!data[cls]) data[cls]={}; if(!data[cls][dt]) data[cls][dt]=[];
+    data[cls][dt].push({h:h,u:u}); saveD(data);
+    document.getElementById('ht').value=''; document.getElementById('lu').value='';
+    loadL(); makeCal();
+}
+function loadL(){
+    let data=getD(); let links=data[cls]?.[dt]||[]; let html='';
+    links.forEach((l,i)=>{html+=`<div class="link">${i+1}. ${l.h}<br><a href="${l.u}" target="_blank">${l.u}</a> <button onclick="delL(${i})" style="float:right;background:red;padding:5px;width:auto;">X</button></div>`;});
+    document.getElementById('llist').innerHTML=html||'No links';
+}
+function delL(i){let data=getD(); data[cls][dt].splice(i,1); saveD(data); loadL(); makeCal();}
 
-    if(isAdmin) {
-        document.getElementById('selectedDate').textContent = `Class ${currentClass} - ${fullDate}`;
-        document.getElementById('linkForm').classList.remove('hidden');
-        document.getElementById('linkInputs').innerHTML = ''; addLinkInput(); loadSavedLinks();
-    } else {
-        let readLinks = JSON.parse(localStorage.getItem('readLinks') || '[]');
-        if(!readLinks.includes(selectedDate)) {
-            readLinks.push(selectedDate);
-            localStorage.setItem('readLinks', JSON.stringify(readLinks));
-        }
-        loadStudentLinks(date, fullDate);
-        generateCalendar('studentCalendar', 'monthYearStudent', false);
+// FIXED STUDENT FUNCTIONS
+function sClass(c){
+    scls=c; sdt='';
+    ['sb9','sb10','sb11','sb12'].forEach(i=>document.getElementById(i).classList.remove('active'));
+    document.getElementById('sb'+c.split('_')[1]).classList.add('active');
+    document.getElementById('scname').innerText=c.replace('_',' ');
+    document.getElementById('scalDiv').style.display='block';
+    makeSCal();
+}
+function makeSCal(){
+    let cal=document.getElementById('scal'); cal.innerHTML='';
+    let mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    document.getElementById('smy').innerText=mn[sm]+' '+sy;
+    'Sun Mon Tue Wed Thu Fri Sat'.split(' ').forEach(d=>cal.innerHTML+=`<div class="week">${d}</div>`);
+    let f=new Date(sy,sm,1).getDay(); let days=new Date(sy,sm+1,0).getDate(); let data=getD();
+    for(let i=0;i<f;i++) cal.innerHTML+='<div></div>';
+    for(let i=1;i<=days;i++){
+        let key=`${sy}-${sm+1}-${i}`;
+        // FIX: Check scls also
+        let c=data[scls]&&data[scls][key]?'has':'';
+        let selected = (sdt === key)? 'selected' : '';
+        let sun=new Date(sy,sm,i).getDay()==0?'sun':'';
+        cal.innerHTML+=`<div class="day ${c} ${selected} ${sun}" onclick="showSL(${i})">${i}</div>`;
     }
 }
-
-function addLinkInput() {
-    const container = document.getElementById('linkInputs');
-    const count = container.children.length + 1;
-    const div = document.createElement('div'); div.className = 'link-input-group';
-    div.innerHTML = `<label>Topic Name:</label><input type="text" class="linkTitle" placeholder="Enter Topic Name"><label>Link ${count} URL (Optional):</label><input type="url" class="linkUrl" placeholder="Enter URL">`;
-    container.appendChild(div);
-}
-
-function saveAllLinks() {
-    const titles = document.querySelectorAll('.linkTitle'); const urls = document.querySelectorAll('.linkUrl');
-    const data = getData(); if(!data[currentClass]) data[currentClass] = {}; data[currentClass][selectedDate] = [];
-    for(let i = 0; i < titles.length; i++) {
-        if(titles[i].value.trim()) {
-            data[currentClass][selectedDate].push({title: titles[i].value, url: urls[i].value});
-        }
-    }
-    if(data[currentClass][selectedDate].length === 0) { delete data[currentClass][selectedDate]; }
-    saveData(data); loadSavedLinks(); generateCalendar('calendar', 'monthYear', true); alert('Links Saved Successfully!');
-}
-
-function deleteLink(index) {
-    const data = getData(); data[currentClass][selectedDate].splice(index, 1);
-    if(data[currentClass][selectedDate].length === 0) { delete data[currentClass][selectedDate]; }
-    saveData(data); loadSavedLinks(); generateCalendar('calendar', 'monthYear', true);
-}
-
-function loadSavedLinks() {
-    const data = getData(); const links = data[currentClass]?.[selectedDate] || [];
-    const div = document.getElementById('savedLinks'); div.innerHTML = '<h4>Saved Links:</h4>';
-    if(links.length === 0) { div.innerHTML += '<p>No links saved yet</p>'; return; }
-    links.forEach((link, index) => {
-        let urlHtml = link.url? `<a href="${link.url}" target="_blank">${link.url}</a>` : `<p style="color:gray;">No URL</p>`;
-        div.innerHTML += `<div class="link-item"><button class="delete-btn" onclick="deleteLink(${index})">❌</button><span class="link-number">Link ${index + 1}</span><div class="link-title">${link.title}</div>${urlHtml}</div>`;
-    });
-}
-
-function loadStudentLinks(date, fullDate) {
-    let m = studentMonth; let y = studentYear;
-    const dateKey = `${y}-${m + 1}-${date}`;
-    const data = getData(); const links = data[currentClass]?.[dateKey] || [];
-    const readLinks = JSON.parse(localStorage.getItem('readLinks') || '[]');
-    const div = document.getElementById('studentLinks');
-    div.innerHTML = `<h4 style="color:#9C27B0; font-weight:800;">Class ${currentClass} - ${fullDate}</h4>`;
-    if(links.length === 0) { div.innerHTML += '<p>No links available for this date</p>'; }
-    else {
-        links.forEach((link, index) => {
-            const isRead = readLinks.includes(dateKey);
-            let urlHtml = link.url? `<a href="${link.url}" target="_blank">${link.url}</a>` : '';
-            div.innerHTML += `<div class="link-item ${isRead? 'read' : ''}"><span class="link-number">Link ${index + 1} ${isRead? '✓' : ''}</span><div class="link-title">${link.title}</div>${urlHtml}</div>`;
-        });
-    }
-}
-
-// FIXED LOGIN - GUARANTEED ALERT
-function login() {
-    const type = document.getElementById('userType').value;
-    const user = document.getElementById('username').value.trim();
-    const pass = document.getElementById('password').value.trim();
-    const savedAdminPass = localStorage.getItem('adminPassword') || '1988';
-
-    if(user === '' || pass === '') {
-        alert('❌ Username மற்றும் Password-ஐ Enter பண்ணுங்க');
-        return;
-    }
-
-    if(type === 'admin') {
-        if(user!== 'kkdgms') {
-            alert('❌ Username தப்பு! \nசரியான Username: kkdgms');
-            return;
-        }
-        if(pass!== savedAdminPass) {
-            alert('❌ Password தப்பு! \nசரியான Password-ஐ போடுங்க');
-            return;
-        }
-        currentUser = 'admin';
-        document.getElementById('loginSection').classList.add('hidden');
-        document.getElementById('adminPanel').classList.remove('hidden');
-        document.getElementById('notificationInput').value = getNotification();
-        loadNotification();
-        updateVisitorCount();
-    }
-
-    else if(type === 'student') {
-        if(user!== 'kkdgms') {
-            alert('❌ Username தப்பு! \nசரியான Username: kkdgms');
-            return;
-        }
-        if(pass!== '2027') {
-            alert('❌ Password தப்பு! \nசரியான Password: 2027');
-            return;
-        }
-        currentUser = 'student';
-        document.getElementById('loginSection').classList.add('hidden');
-        document.getElementById('studentPanel').classList.remove('hidden');
-        loadNotification();
-    }
-}
-
-function logout() {
-    currentUser = '';
-    document.getElementById('username').value = '';
-    document.getElementById('password').value = '';
-    document.getElementById('userType').value = 'admin';
-    document.getElementById('loginSection').classList.remove('hidden');
-    document.getElementById('adminPanel').classList.add('hidden');
-    document.getElementById('studentPanel').classList.add('hidden');
-}
-
-function showCalendar() { currentClass = document.getElementById('classSelect').value; if(!currentClass) return; document.getElementById('calendarSection').classList.remove('hidden'); generateCalendar('calendar', 'monthYear', true); }
-function showStudentCalendar() { currentClass = document.getElementById('studentClassSelect').value; if(!currentClass) return; document.getElementById('studentCalendarSection').classList.remove('hidden'); generateCalendar('studentCalendar', 'monthYearStudent', false); }
-function prevMonth() { currentMonth--; if(currentMonth < 0) { currentMonth = 11; currentYear--; } generateCalendar('calendar', 'monthYear', true); }
-function nextMonth() { currentMonth++; if(currentMonth > 11) { currentMonth = 0; currentYear++; } generateCalendar('calendar', 'monthYear', true); }
-function prevMonthStudent() { studentMonth--; if(studentMonth < 0) { studentMonth = 11; studentYear--; } generateCalendar('studentCalendar', 'monthYearStudent', false); }
-function nextMonthStudent() { studentMonth++; if(studentMonth > 11) { studentMonth = 0; studentYear++; } generateCalendar('studentCalendar', 'monthYearStudent', false); }
-
-function openPasswordModal() { document.getElementById('passwordModal').style.display = 'block'; document.getElementById('step1').classList.remove('hidden'); document.getElementById('step2').classList.add('hidden'); }
-function closePasswordModal() { document.getElementById('passwordModal').style.display = 'none'; document.getElementById('oldPass').value = ''; document.getElementById('securityAnswer').value = ''; document.getElementById('newPass').value = ''; document.getElementById('confirmPass').value = ''; }
-function verifyStep1() {
-    const oldPass = document.getElementById('oldPass').value;
-    const secAns = document.getElementById('securityAnswer').value.trim();
-    const savedAdminPass = localStorage.getItem('adminPassword') || '1988';
-    if(oldPass!== savedAdminPass) { alert('❌ Old Password Not Match!'); return; }
-    if(secAns!== SECURITY_ANSWER) { alert('❌ Security Answer Not Match!'); return; }
-    document.getElementById('step1').classList.add('hidden');
-    document.getElementById('step2').classList.remove('hidden');
-}
-function finalChangePassword() {
-    const newPass = document.getElementById('newPass').value;
-    const confirmPass = document.getElementById('confirmPass').value;
-    if(newPass!== confirmPass) { alert('❌ New Password and Confirm Password Not Match!'); return; }
-    if(newPass.length < 4) { alert('❌ Password must be atleast 4 characters'); return; }
-    localStorage.setItem('adminPassword', newPass);
-    alert('✅ Password Changed Successfully! \nNew Password: ' + newPass);
-    closePasswordModal();
+function spm(){sm--; if(sm<0){sm=11;sy--;} sdt=''; makeSCal();}
+function snm(){sm++; if(sm>11){sm=0;sy++;} sdt=''; makeSCal();}
+function showSL(d){
+    let key=`${sy}-${sm+1}-${d}`;
+    sdt = key;
+    makeSCal();
+    let data=getD();
+    // FIX: Read from data[scls][key]
+    let links=data?.[scls]?.[key]||[];
+    let html=`<h4>Links for ${formatDate(key)}</h4>`;
+    links.forEach(l=>{html+=`<div class="link"><b>${l.h}</b><br><a href="${l.u}" target="_blank">${l.u}</a></div>`;});
+    document.getElementById('slinks').innerHTML=html||'<div style="padding:10px; color:#999;">No links for this date</div>';
 }
 </script>
 </body>
