@@ -5,28 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>KKDGMS School Website</title>
 <style>
+/* உன் CSS அப்படியே இருக்கு - எதுவும் மாத்தல */
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); background-attachment: fixed; transition: 0.3s; }
 body.dark { background: linear-gradient(135deg, #232526 0%, #414345 100%); }
 .container { max-width: 1200px; margin: 0 auto; background: rgba(255,255,255,0.98); padding: 15px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); min-height: 90vh; position: relative; padding-bottom: 70px; }
 body.dark.container { background: #2d2d2d; color: white; }
 .header { background: linear-gradient(90deg, #FF5722, #E91E63); color: white; padding: 20px 15px; text-align: center; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; }
-.header h1 { font-size: clamp(32px, 9vw, 48px); font-weight: 900; margin: 0; letter-spacing: 3px; text-shadow: 3px 3px 6px rgba(0,0,0,0.4); text-align: center; }
-.header p { font-size: clamp(18px, 5vw, 24px); margin: 8px 0 0; font-weight: 800; text-align: center; letter-spacing: 1px; } /* இதுதான் பெருசாக்குனது */
+.header h1 { font-size: clamp(28px, 8vw, 42px); font-weight: 900; margin: 0; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); text-align: center; }
+.header p { font-size: clamp(14px, 4vw, 18px); margin: 8px 0 0; font-weight: 600; text-align: center; }
 .header.datetime { font-size: clamp(12px, 3.5vw, 15px); margin-top: 5px; font-weight: 500; opacity: 0.95; }
-.dark-btn { position: absolute; right: 10px; top: 10px; background: white; color: #333; border: none; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 16px; width: auto; } /* இதுதான் சின்னதாக்குனது */
+.dark-btn { position: absolute; right: 15px; top: 15px; background: white; color: #333; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 20px; width: auto; }
 .footer { position: absolute; bottom: 0; left: 0; right: 0; text-align: center; padding: 12px; background: #333; color: white; border-radius: 0 0 15px 15px; font-size: 13px; }
 .footer.school-name { font-size: 14px; font-weight: bold; letter-spacing: 1px; }
 .marquee { background: #FF9800; color: white; padding: 10px; font-weight: bold; border-radius: 8px; margin-bottom: 15px; overflow: hidden; white-space: nowrap; font-size: clamp(13px, 3.5vw, 16px); display: none; }
 .marquee.show { display: block; }
 .marquee span { display: inline-block; padding-left: 100%; animation: scroll-left 15s linear infinite; }
-@keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); }
+@keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 .login-form { max-width: 450px; margin: 20px auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
 body.dark.login-form { background: #3a3a3a; }
 input, select, button, textarea { width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; font-weight: 600; }
 body.dark input, body.dark select, body.dark textarea { background: #555; color: white; border-color: #777; }
 button { background: linear-gradient(90deg, #4CAF50, #45a049); color: white; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 16px; min-height: 48px; }
 button:active { transform: scale(0.98); }
+option[value="9"] { background: #FF9800; color: white; font-weight: bold; }
+option[value="10"] { background: #2196F3; color: white; font-weight: bold; }
+option[value="11"] { background: #4CAF50; color: white; font-weight: bold; }
+option[value="12"] { background: #9C27B0; color: white; font-weight: bold; }
 .calendar-header { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; gap: 8px; }
 .calendar-header button { width: auto; padding: 10px 12px; font-size: 14px; flex-shrink: 0; }
 .calendar-header h3 { font-size: clamp(16px, 4.5vw, 20px); margin: 0; text-align: center; flex: 1; }
@@ -34,16 +39,22 @@ button:active { transform: scale(0.98); }
 .weekday { text-align: center; font-weight: bold; padding: 8px 2px; background: #FF5722; color: white; border-radius: 6px; font-size: clamp(11px, 3vw, 14px); }
 .day { padding: 12px 2px; text-align: center; background: #f5f5f5; cursor: pointer; border-radius: 8px; transition: 0.2s; font-weight: 800; font-size: clamp(14px, 4vw, 16px); min-height: 45px; display: flex; align-items: center; justify-content: center; position: relative; }
 body.dark.day { background: #444; color: white; }
+.day:active { transform: scale(0.95); }
+.day.empty { background: transparent; cursor: default; }
+.day.read::after { content: '✓'; position: absolute; top: 2px; right: 4px; font-size: 12px; color: #4CAF50; }
 .day.has-links-9 { background: #FF9800; color: white; }
 .day.has-links-10 { background: #2196F3; color: white; }
 .day.has-links-11 { background: #4CAF50; color: white; }
 .day.has-links-12 { background: #9C27B0; color: white; }
 .day-sunday { background: #FFE082!important; color: #5D4037!important; border: 2px solid #FFB300; }
+.day-govt { background: #FFCDD2!important; color: #c62828!important; border: 2px solid #e53935; }
 .link-item { background: linear-gradient(90deg, #FFF3E0, #FFE0B2); padding: 12px; margin: 10px 0; border-radius: 10px; border-left: 5px solid #FF5722; word-break: break-word; }
 body.dark.link-item { background: #4a3a2a; }
+.link-number { background: #9C27B0; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; font-size: 12px; display: inline-block; margin-bottom: 8px; }
 .link-title { font-weight: bold; color: #E91E63; margin-bottom: 6px; font-size: clamp(14px, 4vw, 16px); }
 body.dark.link-title { color: #FF8A65; }
 .link-item a { color: #2196F3; text-decoration: none; font-weight: 600; font-size: clamp(13px, 3.8vw, 15px); }
+.link-item.read { opacity: 0.6; }
 .delete-btn { background: #f44336; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; width: auto; margin: 0; float: right; font-size: 14px; min-height: 36px; }
 .add-link-btn { background: #2196F3; margin-top: 10px; }
 .hidden { display: none; }
@@ -53,6 +64,18 @@ body.dark.link-title { color: #FF8A65; }
 body.dark.link-input-group { background: #3a3a3a; border-color: #666; }
 .notification-box { background: #fff3e0; padding: 12px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #FF9800; }
 body.dark.notification-box { background: #4a3a2a; }
+.search-box { margin: 15px 0; }
+.search-box input { background: #E3F2FD; }
+.visitor-counter { display: flex; gap: 10px; margin: 15px 0; }
+.counter-box { flex: 1; background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 15px; border-radius: 10px; text-align: center; }
+.counter-box h4 { margin: 0; font-size: 14px; }
+.counter-box.count { font-size: 28px; font-weight: 900; margin-top: 5px; }
+.section-title { background: linear-gradient(90deg, #FF5722, #9C27B0); color: white; padding: 12px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-size: clamp(16px, 4.5vw, 18px); font-weight: bold; }
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); overflow: auto; }
+.modal-content { background: white; margin: 10% auto; padding: 20px; border-radius: 15px; width: 90%; max-width: 400px; }
+body.dark.modal-content { background: #3a3a3a; }
+.close-btn { float: right; font-size: 28px; font-weight: bold; cursor: pointer; color: #aaa; }
+/* புதுசா add பண்ணது */
 .sync-box { background: #E8F5E9; padding: 15px; border-radius: 10px; margin: 15px 0; border: 2px dashed #4CAF50; }
 body.dark.sync-box { background: #1b5e20; }
 #jsonOutput { width: 100%; height: 150px; font-family: monospace; background: #222; color: #0f0; font-size: 12px; }
@@ -75,16 +98,43 @@ body.dark.sync-box { background: #1b5e20; }
     <div id="loginSection" class="login-form">
         <h2>Login</h2>
         <select id="userType"><option value="admin">Admin</option><option value="student">Student</option></select>
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
+        <input type="text" id="username" placeholder="Username" autocomplete="off">
+        <input type="password" id="password" placeholder="Password" autocomplete="off">
         <button onclick="login()">Login</button>
     </div>
 
     <div id="adminPanel" class="hidden">
-        <div class="header-bar"><h2>Admin Panel</h2><button onclick="logout()" style="width:auto;background:#f44336;">Logout</button></div>
-        <div class="notification-box"><h3>📢 Rolling Notification</h3><textarea id="notificationInput" rows="3"></textarea><button onclick="saveNotification()">Update Notification</button></div>
+        <div class="header-bar">
+            <h2>Admin Panel</h2>
+            <div>
+                <button onclick="openPasswordModal()" style="width:auto;background:#FF9800; margin-right:5px;">🔒 Change Password</button>
+                <button onclick="logout()" style="width:auto;background:#f44336;">Logout</button>
+            </div>
+        </div>
+
+        <div class="visitor-counter">
+            <div class="counter-box"><h4>📅 Today Visitors</h4><div class="count" id="todayCount">0</div></div>
+            <div class="counter-box" style="background: linear-gradient(135deg, #2196F3, #1976D2);"><h4>🌍 Total Visitors</h4><div class="count" id="totalCount">0</div></div>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Search Link Title..." onkeyup="searchLinks()">
+            <div id="searchResults"></div>
+        </div>
+
+        <div class="notification-box">
+            <h3>📢 Rolling Notification</h3>
+            <textarea id="notificationInput" rows="3" placeholder="Enter notification message..."></textarea>
+            <button onclick="saveNotification()">Update Notification</button>
+            <button onclick="clearNotification()" style="background:#f44336;">Clear</button>
+        </div>
+
+        <div class="section-title">📚 Class Links Management</div>
         <label>Select Class:</label>
-        <select id="classSelect" onchange="showCalendar()"><option value="">-- Select Class --</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option></select>
+        <select id="classSelect" onchange="showCalendar()">
+            <option value="">-- Select Class --</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option>
+        </select>
+
         <div id="calendarSection" class="hidden">
             <div class="calendar-header"><button onclick="prevMonth()">← Prev</button><h3 id="monthYear"></h3><button onclick="nextMonth()">Next →</button></div>
             <div id="calendar" class="calendar"></div>
@@ -95,117 +145,122 @@ body.dark.sync-box { background: #1b5e20; }
                 <div id="savedLinks"></div>
             </div>
         </div>
+
+        <!-- புதுசா add பண்ணது -->
         <div class="sync-box">
             <h4>🔄 Step 1: Generate Data for GitHub</h4>
             <button onclick="prepareData()">Generate Data</button>
-            <textarea id="jsonOutput" readonly placeholder="Click 'Generate Data' button, then copy this"></textarea>
-            <h4>🔄 Step 2: Paste in data.json and Commit</h4>
+            <textarea id="jsonOutput" readonly placeholder="Click 'Generate Data' button, then copy this full data"></textarea>
+            <p><b>Step 2:</b> Copy above data > Go to data.json > Edit > Paste > Commit</p>
         </div>
     </div>
 
     <div id="studentPanel" class="hidden">
         <div class="header-bar"><h2>Student Panel</h2><button onclick="logout()" style="width:auto;background:#f44336;">Logout</button></div>
         <label>Select Class:</label>
-        <select id="studentClassSelect" onchange="showStudentCalendar()"><option value="">-- Select Class --</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option></select>
+        <select id="studentClassSelect" onchange="showStudentCalendar()">
+            <option value="">-- Select Class --</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option>
+        </select>
         <div id="studentCalendarSection" class="hidden">
             <div class="calendar-header"><button onclick="prevMonthStudent()">← Prev</button><h3 id="monthYearStudent"></h3><button onclick="nextMonthStudent()">Next →</button></div>
             <div id="studentCalendar" class="calendar"></div>
             <div id="studentLinks"></div>
         </div>
     </div>
+
     <div class="footer"><div class="school-name">KKDGMS</div><b>Website Developer:</b> VALLIVEL P</div>
 </div>
 
+<div id="passwordModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closePasswordModal()">&times;</span>
+    <h3>🔒 Change Admin Password</h3>
+    <div id="step1">
+        <input type="password" id="oldPass" placeholder="Enter Old Password">
+        <input type="tel" id="securityAnswer" placeholder="Enter Your Security Answer" inputmode="numeric">
+        <button onclick="verifyStep1()">Verify</button>
+    </div>
+    <div id="step2" class="hidden">
+        <p style="color:green; font-weight:bold;">✅ Verified! Now enter new password</p>
+        <input type="password" id="newPass" placeholder="Enter New Password">
+        <input type="password" id="confirmPass" placeholder="Confirm New Password">
+        <button onclick="finalChangePassword()">Change Password</button>
+    </div>
+  </div>
+</div>
+
 <script>
-let portalData = { notification: "Welcome to KKDGMS", links: {} };
-let currentClass = ''; let selectedDate = '';
+let currentUser = ''; let currentClass = ''; let selectedDate = '';
 let currentMonth = new Date().getMonth(); let currentYear = new Date().getFullYear();
 let studentMonth = new Date().getMonth(); let studentYear = new Date().getFullYear();
+const SECURITY_ANSWER = '9047984396';
+let portalData = { notification: "", links: {} }; // புதுசு
 
+// CHANGE 1: Page load ஆகும்போது data.json ல இருந்து எடுக்கும்
 async function loadData() {
-    try { let res = await fetch('data.json?v=' + new Date().getTime()); portalData = await res.json(); }
-    catch(e) { console.log("data.json not found"); }
-    loadNotification();
+    try {
+        let res = await fetch('data.json?v=' + new Date().getTime());
+        portalData = await res.json();
+    } catch(e) { console.log("data.json not found, using empty"); }
+}
+window.onload = async function() { await loadData(); updateVisitorCount(); loadNotification(); }
+
+// CHANGE 2: localStorage-க்கு பதிலா portalData use பண்ணுது
+function getData() { return portalData.links || {}; }
+function saveData(data) { portalData.links = data; } // இது memory-ல மட்டும் save ஆகும்
+function getNotification() { return portalData.notification || ''; }
+function saveNotification() {
+    const msg = document.getElementById('notificationInput').value.trim();
+    if(msg === '') { alert('Please enter a notification message'); return; }
+    portalData.notification = msg; // memory-ல save
+    loadNotification(); alert('Notification Updated! Now click Generate Data button');
+}
+function clearNotification() {
+    portalData.notification = '';
+    document.getElementById('notificationInput').value = '';
+    loadNotification(); alert('Notification Cleared! Now click Generate Data button');
 }
 function loadNotification() {
-    document.getElementById('marqueeText').textContent = portalData.notification || '';
-    if(portalData.notification) document.getElementById('marqueeBar').classList.add('show');
+    const msg = getNotification();
+    const bar = document.getElementById('marqueeBar');
+    const text = document.getElementById('marqueeText');
+    if(msg && msg.trim()!== '') { text.textContent = msg; bar.classList.add('show'); }
+    else { bar.classList.remove('show'); }
 }
-function saveNotification() { portalData.notification = document.getElementById('notificationInput').value; alert('Notification Updated! Now click Generate Data button'); loadNotification(); }
 
-function login() {
-    let type = document.getElementById('userType').value; let u = document.getElementById('username').value; let p = document.getElementById('password').value;
-    if(u === 'kkdgms' && p === '1988' && type === 'admin') {
-        document.getElementById('loginSection').classList.add('hidden'); document.getElementById('adminPanel').classList.remove('hidden');
-        document.getElementById('notificationInput').value = portalData.notification;
-    } else if(u === 'kkdgms' && p === '2027' && type === 'student') {
-        document.getElementById('loginSection').classList.add('hidden'); document.getElementById('studentPanel').classList.remove('hidden');
-    } else { alert('Wrong Login'); }
+// CHANGE 3: Generate button
+function prepareData() {
+    document.getElementById('jsonOutput').value = JSON.stringify(portalData, null, 2);
+    alert('Copy this full data and paste in data.json file in GitHub');
 }
-function logout() { location.reload(); }
-function toggleDark() { document.body.classList.toggle('dark'); }
 
+// மத்த எல்லா function-ம் அப்படியே இருக்கு 👇
+function updateDateTime() { const now = new Date(); const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }; document.getElementById('currentDateTime').textContent = now.toLocaleDateString('en-IN', options); }
+setInterval(updateDateTime, 1000); updateDateTime();
+function toggleDark() { document.body.classList.toggle('dark'); localStorage.setItem('darkMode', document.body.classList.contains('dark')); }
+if(localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
+function updateVisitorCount() { const today = new Date().toDateString(); let todayCount = parseInt(localStorage.getItem('kkdgmsTodayCount') || '0'); let totalCount = parseInt(localStorage.getItem('kkdgmsTotalCount') || '0'); let lastVisitDate = localStorage.getItem('kkdgmsLastVisitDate'); if(lastVisitDate!== today) { todayCount = 0; localStorage.setItem('kkdgmsLastVisitDate', today); } if(!sessionStorage.getItem('kkdgmsVisited')) { todayCount++; totalCount++; localStorage.setItem('kkdgmsTodayCount', todayCount); localStorage.setItem('kkdgmsTotalCount', totalCount); sessionStorage.setItem('kkdgmsVisited', 'true'); } if(document.getElementById('todayCount')) { document.getElementById('todayCount').textContent = todayCount; document.getElementById('totalCount').textContent = totalCount; } }
+function searchLinks() { const query = document.getElementById('searchInput').value.toLowerCase(); const data = getData(); const results = []; for(let cls in data) { for(let date in data[cls]) { data[cls][date].forEach(link => { if(link.title.toLowerCase().includes(query) && query.length > 0) { results.push(`Class ${cls} - ${date}: ${link.title}`); } }); } document.getElementById('searchResults').innerHTML = results.length? results.map(r=>`<p>${r}</p>`).join('') : ''; }
+const GOVT_HOLIDAYS = ['2026-1-14', '2026-1-26', '2026-8-15', '2026-10-2'];
+function generateCalendar(calendarId, monthYearId, isAdmin) { const calendar = document.getElementById(calendarId); const monthYear = document.getElementById(monthYearId); calendar.innerHTML = ''; let m = isAdmin? currentMonth : studentMonth; let y = isAdmin? currentYear : studentYear; const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]; monthYear.textContent = `${monthNames[m]} ${y}`; const weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S']; weekdays.forEach(day => { const d = document.createElement('div'); d.className = 'weekday'; d.textContent = day; calendar.appendChild(d); }); const data = getData(); const classData = data[currentClass] || {}; const firstDay = new Date(y, m, 1).getDay(); const daysInMonth = new Date(y, m + 1, 0).getDate(); for(let i = 0; i < firstDay; i++) { const empty = document.createElement('div'); empty.className = 'day empty'; calendar.appendChild(empty); } for(let i = 1; i <= daysInMonth; i++) { const day = document.createElement('div'); day.className = 'day'; day.textContent = i; const dateKey = `${y}-${m + 1}-${i}`; const dayOfWeek = new Date(y, m, i).getDay(); const readLinks = JSON.parse(localStorage.getItem('readLinks') || '[]'); if(GOVT_HOLIDAYS.includes(dateKey)) { day.classList.add('day-govt'); } else if(dayOfWeek === 0) { day.classList.add('day-sunday'); } else if(classData[dateKey] && classData[dateKey].length > 0) { day.classList.add(`has-links-${currentClass}`); } if(readLinks.includes(dateKey)) day.classList.add('read'); day.onclick = () => selectDate(i, isAdmin); calendar.appendChild(day); } }
+function selectDate(date, isAdmin) { let m = isAdmin? currentMonth : studentMonth; let y = isAdmin? currentYear : studentYear; selectedDate = `${y}-${m + 1}-${date}`; const dateObj = new Date(y, m, date); const fullDate = dateObj.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }); if(isAdmin) { document.getElementById('selectedDate').textContent = `Class ${currentClass} - ${fullDate}`; document.getElementById('linkForm').classList.remove('hidden'); document.getElementById('linkInputs').innerHTML = ''; addLinkInput(); loadSavedLinks(); } else { let readLinks = JSON.parse(localStorage.getItem('readLinks') || '[]'); if(!readLinks.includes(selectedDate)) { readLinks.push(selectedDate); localStorage.setItem('readLinks', JSON.stringify(readLinks)); } loadStudentLinks(date, fullDate); generateCalendar('studentCalendar', 'monthYearStudent', false); } }
+function addLinkInput() { const container = document.getElementById('linkInputs'); const count = container.children.length + 1; const div = document.createElement('div'); div.className = 'link-input-group'; div.innerHTML = `<label>Topic Name:</label><input type="text" class="linkTitle" placeholder="Enter Topic Name"><label>Link ${count} URL (Optional):</label><input type="url" class="linkUrl" placeholder="Enter URL">`; container.appendChild(div); }
+function saveAllLinks() { const titles = document.querySelectorAll('.linkTitle'); const urls = document.querySelectorAll('.linkUrl'); const data = getData(); if(!data[currentClass]) data[currentClass] = {}; data[currentClass][selectedDate] = []; for(let i = 0; i < titles.length; i++) { if(titles[i].value.trim()) { data[currentClass][selectedDate].push({title: titles[i].value, url: urls[i].value}); } if(data[currentClass][selectedDate].length === 0) { delete data[currentClass][selectedDate]; } saveData(data); loadSavedLinks(); generateCalendar('calendar', 'monthYear', true); alert('Links Saved! Now click Generate Data button'); }
+function deleteLink(index) { const data = getData(); data[currentClass][selectedDate].splice(index, 1); if(data[currentClass][selectedDate].length === 0) { delete data[currentClass][selectedDate]; } saveData(data); loadSavedLinks(); generateCalendar('calendar', 'monthYear', true); }
+function loadSavedLinks() { const data = getData(); const links = data[currentClass]?.[selectedDate] || []; const div = document.getElementById('savedLinks'); div.innerHTML = '<h4>Saved Links:</h4>'; if(links.length === 0) { div.innerHTML += '<p>No links saved yet</p>'; return; } links.forEach((link, index) => { let urlHtml = link.url? `<a href="${link.url}" target="_blank">${link.url}</a>` : `<p style="color:gray;">No URL</p>`; div.innerHTML += `<div class="link-item"><button class="delete-btn" onclick="deleteLink(${index})">❌</button><span class="link-number">Link ${index + 1}</span><div class="link-title">${link.title}</div>${urlHtml}</div>`; }); }
+function loadStudentLinks(date, fullDate) { let m = studentMonth; let y = studentYear; const dateKey = `${y}-${m + 1}-${date}`; const data = getData(); const links = data[currentClass]?.[dateKey] || []; const readLinks = JSON.parse(localStorage.getItem('readLinks') || '[]'); const div = document.getElementById('studentLinks'); div.innerHTML = `<h4 style="color:#9C27B0; font-weight:800;">Class ${currentClass} - ${fullDate}</h4>`; if(links.length === 0) { div.innerHTML += '<p>No links available for this date</p>'; } else { links.forEach((link, index) => { const isRead = readLinks.includes(dateKey); let urlHtml = link.url? `<a href="${link.url}" target="_blank">${link.url}</a>` : ''; div.innerHTML += `<div class="link-item ${isRead? 'read' : ''}"><span class="link-number">Link ${index + 1} ${isRead? '✓' : ''}</span><div class="link-title">${link.title}</div>${urlHtml}</div>`; }); } }
+function login() { const type = document.getElementById('userType').value; const user = document.getElementById('username').value.trim(); const pass = document.getElementById('password').value.trim(); const savedAdminPass = localStorage.getItem('adminPassword') || '1988'; if(user === '' || pass === '') { alert('❌ Username மற்றும் Password-ஐ Enter பண்ணுங்க'); return; } if(type === 'admin') { if(user!== 'kkdgms') { alert('❌ Username தப்பு! \nசரியான Username: kkdgms'); return; } if(pass!== savedAdminPass) { alert('❌ Password தப்பு! \nசரியான Password-ஐ போடுங்க'); return; } currentUser = 'admin'; document.getElementById('loginSection').classList.add('hidden'); document.getElementById('adminPanel').classList.remove('hidden'); document.getElementById('notificationInput').value = getNotification(); loadNotification(); updateVisitorCount(); } else if(type === 'student') { if(user!== 'kkdgms') { alert('❌ Username தப்பு! \nசரியான Username: kkdgms'); return; } if(pass!== '2027') { alert('❌ Password தப்பு! \nசரியான Password: 2027'); return; } currentUser = 'student'; document.getElementById('loginSection').classList.add('hidden'); document.getElementById('studentPanel').classList.remove('hidden'); loadNotification(); } }
+function logout() { currentUser = ''; document.getElementById('username').value = ''; document.getElementById('password').value = ''; document.getElementById('userType').value = 'admin'; document.getElementById('loginSection').classList.remove('hidden'); document.getElementById('adminPanel').classList.add('hidden'); document.getElementById('studentPanel').classList.add('hidden'); }
 function showCalendar() { currentClass = document.getElementById('classSelect').value; if(!currentClass) return; document.getElementById('calendarSection').classList.remove('hidden'); generateCalendar('calendar', 'monthYear', true); }
 function showStudentCalendar() { currentClass = document.getElementById('studentClassSelect').value; if(!currentClass) return; document.getElementById('studentCalendarSection').classList.remove('hidden'); generateCalendar('studentCalendar', 'monthYearStudent', false); }
-
-function generateCalendar(calendarId, monthYearId, isAdmin) {
-    const calendar = document.getElementById(calendarId); const monthYear = document.getElementById(monthYearId); calendar.innerHTML = '';
-    let m = isAdmin? currentMonth : studentMonth; let y = isAdmin? currentYear : studentYear;
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    monthYear.textContent = `${monthNames[m]} ${y}`;
-    const weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S']; weekdays.forEach(day => { const d = document.createElement('div'); d.className = 'weekday'; d.textContent = day; calendar.appendChild(d); });
-    const classData = portalData.links[currentClass] || {};
-    const firstDay = new Date(y, m, 1).getDay(); const daysInMonth = new Date(y, m + 1, 0).getDate();
-    for(let i = 0; i < firstDay; i++) { const empty = document.createElement('div'); empty.className = 'day empty'; calendar.appendChild(empty); }
-    for(let i = 1; i <= daysInMonth; i++) {
-        const day = document.createElement('div'); day.className = 'day'; day.textContent = i;
-        const dateKey = `${y}-${m + 1}-${i}`; const dayOfWeek = new Date(y, m, i).getDay();
-        if(dayOfWeek === 0) { day.classList.add('day-sunday'); }
-        if(classData[dateKey] && classData[dateKey].length > 0) { day.classList.add(`has-links-${currentClass}`); }
-        day.onclick = () => selectDate(i, isAdmin); calendar.appendChild(day);
-    }
-}
-function selectDate(date, isAdmin) {
-    let m = isAdmin? currentMonth : studentMonth; let y = isAdmin? currentYear : studentYear;
-    selectedDate = `${y}-${m + 1}-${date}`; const dateObj = new Date(y, m, date); const fullDate = dateObj.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
-    if(isAdmin) {
-        document.getElementById('selectedDate').textContent = `Class ${currentClass} - ${fullDate}`;
-        document.getElementById('linkForm').classList.remove('hidden'); document.getElementById('linkInputs').innerHTML = ''; addLinkInput(); loadSavedLinks();
-    } else { loadStudentLinks(date, fullDate); }
-}
-function addLinkInput() {
-    const container = document.getElementById('linkInputs'); const count = container.children.length + 1;
-    const div = document.createElement('div'); div.className = 'link-input-group';
-    div.innerHTML = `<label>Topic Name:</label><input type="text" class="linkTitle"><label>Link ${count} URL:</label><input type="url" class="linkUrl">`;
-    container.appendChild(div);
-}
-function saveAllLinks() {
-    const titles = document.querySelectorAll('.linkTitle'); const urls = document.querySelectorAll('.linkUrl');
-    if(!portalData.links[currentClass]) portalData.links[currentClass] = {};
-    portalData.links[currentClass][selectedDate] = [];
-    for(let i = 0; i < titles.length; i++) { if(titles[i].value.trim()) { portalData.links[currentClass][selectedDate].push({title: titles[i].value, url: urls[i].value}); }
-    alert('Links Saved! Now click Generate Data button'); loadSavedLinks(); generateCalendar('calendar', 'monthYear', true);
-}
-function loadSavedLinks() {
-    const links = portalData.links[currentClass]?.[selectedDate] || [];
-    const div = document.getElementById('savedLinks'); div.innerHTML = '<h4>Saved Links:</h4>';
-    links.forEach((link, index) => { div.innerHTML += `<div class="link-item"><div class="link-title">${link.title}</div><a href="${link.url}" target="_blank">${link.url}</a></div>`; });
-}
-function loadStudentLinks(date, fullDate) {
-    let m = studentMonth; let y = studentYear; const dateKey = `${y}-${m + 1}-${date}`;
-    const links = portalData.links[currentClass]?.[dateKey] || [];
-    const div = document.getElementById('studentLinks'); div.innerHTML = `<h4>Class ${currentClass} - ${fullDate}</h4>`;
-    if(links.length === 0) { div.innerHTML += '<p>No links available</p>'; }
-    else { links.forEach((link, index) => { div.innerHTML += `<div class="link-item"><div class="link-title">${link.title}</div><a href="${link.url}" target="_blank">${link.url}</a></div>`; }); }
-}
-function prepareData() { document.getElementById('jsonOutput').value = JSON.stringify(portalData, null, 2); alert('Copy this full data and paste in data.json'); }
 function prevMonth() { currentMonth--; if(currentMonth < 0) { currentMonth = 11; currentYear--; } generateCalendar('calendar', 'monthYear', true); }
 function nextMonth() { currentMonth++; if(currentMonth > 11) { currentMonth = 0; currentYear++; } generateCalendar('calendar', 'monthYear', true); }
 function prevMonthStudent() { studentMonth--; if(studentMonth < 0) { studentMonth = 11; studentYear--; } generateCalendar('studentCalendar', 'monthYearStudent', false); }
 function nextMonthStudent() { studentMonth++; if(studentMonth > 11) { studentMonth = 0; studentYear++; } generateCalendar('studentCalendar', 'monthYearStudent', false); }
-
-setInterval(() => { document.getElementById('currentDateTime').textContent = new Date().toLocaleString('en-IN'); }, 1000);
-loadData();
+function openPasswordModal() { document.getElementById('passwordModal').style.display = 'block'; document.getElementById('step1').classList.remove('hidden'); document.getElementById('step2').classList.add('hidden'); }
+function closePasswordModal() { document.getElementById('passwordModal').style.display = 'none'; document.getElementById('oldPass').value = ''; document.getElementById('securityAnswer').value = ''; document.getElementById('newPass').value = ''; document.getElementById('confirmPass').value = ''; }
+function verifyStep1() { const oldPass = document.getElementById('oldPass').value; const secAns = document.getElementById('securityAnswer').value.trim(); const savedAdminPass = localStorage.getItem('adminPassword') || '1988'; if(oldPass!== savedAdminPass) { alert('❌ Old Password Not Match!'); return; } if(secAns!== SECURITY_ANSWER) { alert('❌ Security Answer Not Match!'); return; } document.getElementById('step1').classList.add('hidden'); document.getElementById('step2').classList.remove('hidden'); }
+function finalChangePassword() { const newPass = document.getElementById('newPass').value; const confirmPass = document.getElementById('confirmPass').value; if(newPass!== confirmPass) { alert('❌ New Password and Confirm Password Not Match!'); return; } if(newPass.length < 4) { alert('❌ Password must be atleast 4 characters'); return; } localStorage.setItem('adminPassword', newPass); alert('✅ Password Changed Successfully! \nNew Password: ' + newPass); closePasswordModal(); }
 </script>
 </body>
 </html>
